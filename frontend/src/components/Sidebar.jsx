@@ -5,6 +5,10 @@ import { TUTORS } from '../data/tutors'
 import ThemeToggle from './ThemeToggle'
 import TutorModal from './TutorModal'
 
+const TOP_NAV = [
+  { path: '/discover', label: 'Discover Yourself', icon: '🔮', featured: true }
+]
+
 const NAV_ITEMS = [
   { path: '/home', label: 'Dashboard', icon: '🏠' },
   { path: '/role', label: 'Practice', icon: '🎯' },
@@ -79,6 +83,43 @@ export default function Sidebar() {
           </div>
         )}
 
+        <nav className="sidebar-nav">
+          {TOP_NAV.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                `sidebar-link sidebar-link-featured ${isActive ? 'sidebar-link-active' : ''}`
+              }
+              title={collapsed ? item.label : ''}
+            >
+              <span className="sidebar-link-icon">{item.icon}</span>
+              {!collapsed && (
+                <div className="sidebar-link-featured-info">
+                  <span className="sidebar-link-label">{item.label}</span>
+                  <span className="sidebar-link-featured-tag">New</span>
+                </div>
+              )}
+            </NavLink>
+          ))}
+
+          <div className="sidebar-nav-divider" />
+
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
+              }
+              title={collapsed ? item.label : ''}
+            >
+              <span className="sidebar-link-icon">{item.icon}</span>
+              {!collapsed && <span className="sidebar-link-label">{item.label}</span>}
+            </NavLink>
+          ))}
+        </nav>
+
         {!collapsed && user && (
           <div className="sidebar-profile">
             <div className="sidebar-avatar">{user.display_name?.[0]?.toUpperCase() || 'U'}</div>
@@ -107,22 +148,6 @@ export default function Sidebar() {
             </div>
           </div>
         )}
-
-        <nav className="sidebar-nav">
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
-              }
-              title={collapsed ? item.label : ''}
-            >
-              <span className="sidebar-link-icon">{item.icon}</span>
-              {!collapsed && <span className="sidebar-link-label">{item.label}</span>}
-            </NavLink>
-          ))}
-        </nav>
 
         <div className="sidebar-footer">
           <ThemeToggle />
