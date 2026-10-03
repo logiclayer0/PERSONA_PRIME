@@ -18,6 +18,10 @@ const FUNNY_HEADLINES = {
     "You showed up. Now let's polish the diamond.",
     "Close. Round 2 will be better."
   ],
+  "NO DATA": [
+    "Come back with the camera on — we need data!",
+    "Session data incomplete. Try again properly."
+  ],
   PENDING: [
     "Session data incomplete. Let's try again.",
     "Come back with the camera on — we need data!"
@@ -49,13 +53,16 @@ export default function ReportCard({ report, user }) {
 
   const hasSession = report.final_status && report.final_status !== 'PENDING' && report.final_status !== 'NO DATA'
 
-  const chartData = useMemo(() => hasSession ? [
-    { label: 'Posture', value: report.posture_pct || 0, color: '#a855f7' },
-    { label: 'Eye', value: report.eye_pct || 0, color: '#3b82f6' },
-    { label: 'Gesture', value: report.gesture_pct || 0, color: '#f59e0b' },
-    { label: 'Speech', value: report.speech_pct || 0, color: '#10b981' },
-    { label: 'Grammar', value: report.grammar_pct || 0, color: '#8b5cf6' }
-  ] : [], [report, hasSession])
+  const chartData = useMemo(() => {
+    if (!hasSession) return []
+    const items = []
+    if (report.posture_pct > 0) items.push({ label: 'Posture', value: report.posture_pct, color: '#a855f7' })
+    if (report.eye_pct > 0) items.push({ label: 'Eye', value: report.eye_pct, color: '#3b82f6' })
+    if (report.gesture_pct > 0) items.push({ label: 'Gesture', value: report.gesture_pct, color: '#f59e0b' })
+    if (report.speech_pct > 0) items.push({ label: 'Speech', value: report.speech_pct, color: '#10b981' })
+    if (report.grammar_pct > 0) items.push({ label: 'Grammar', value: report.grammar_pct, color: '#8b5cf6' })
+    return items
+  }, [report, hasSession])
 
   const achievements = useMemo(() =>
     ACHIEVEMENTS(report, user?.streak || 0, user?.points || 0),
@@ -102,7 +109,7 @@ export default function ReportCard({ report, user }) {
         </div>
       )}
 
-      {hasSession && (
+      {hasSession && chartData.length > 0 && (
         <div className="report-charts-grid">
           <div className="report-chart-card">
             <h3 className="report-section-title">📊 Metric Breakdown</h3>
@@ -123,10 +130,12 @@ export default function ReportCard({ report, user }) {
             <BarChart data={chartData} height={220} />
           </div>
 
-          <div className="report-chart-card">
-            <h3 className="report-section-title">🕸️ Confidence Web</h3>
-            <RadarChart data={chartData} size={260} />
-          </div>
+          {chartData.length >= 3 && (
+            <div className="report-chart-card">
+              <h3 className="report-section-title">🕸️ Confidence Web</h3>
+              <RadarChart data={chartData} size={260} />
+            </div>
+          )}
         </div>
       )}
 
@@ -135,35 +144,35 @@ export default function ReportCard({ report, user }) {
         <div className="report-metrics-grid">
           <div className="report-metric report-metric-status">
             <p className="report-metric-label">Posture</p>
-            <p className={`report-metric-value status-${(report.posture_status || 'pending').toLowerCase()}`}>
+            <p className={`report-metric-value status-${(report.posture_status || 'no-data').toLowerCase().replace(' ', '-')}`}>
               {report.posture_status}
             </p>
             {report.posture_pct > 0 && <div className="metric-bar"><div className="metric-bar-fill" style={{ width: `${report.posture_pct}%`, background: '#a855f7' }} /></div>}
           </div>
           <div className="report-metric report-metric-status">
             <p className="report-metric-label">Eye Contact</p>
-            <p className={`report-metric-value status-${(report.eye_contact_status || 'pending').toLowerCase()}`}>
+            <p className={`report-metric-value status-${(report.eye_contact_status || 'no-data').toLowerCase().replace(' ', '-')}`}>
               {report.eye_contact_status}
             </p>
             {report.eye_pct > 0 && <div className="metric-bar"><div className="metric-bar-fill" style={{ width: `${report.eye_pct}%`, background: '#3b82f6' }} /></div>}
           </div>
           <div className="report-metric report-metric-status">
             <p className="report-metric-label">Gesture</p>
-            <p className={`report-metric-value status-${(report.gesture_status || 'pending').toLowerCase()}`}>
+            <p className={`report-metric-value status-${(report.gesture_status || 'no-data').toLowerCase().replace(' ', '-')}`}>
               {report.gesture_status}
             </p>
             {report.gesture_pct > 0 && <div className="metric-bar"><div className="metric-bar-fill" style={{ width: `${report.gesture_pct}%`, background: '#f59e0b' }} /></div>}
           </div>
           <div className="report-metric report-metric-status">
             <p className="report-metric-label">Speech</p>
-            <p className={`report-metric-value status-${(report.speech_status || 'pending').toLowerCase()}`}>
+            <p className={`report-metric-value status-${(report.speech_status || 'no-data').toLowerCase().replace(' ', '-')}`}>
               {report.speech_status}
             </p>
             {report.speech_pct > 0 && <div className="metric-bar"><div className="metric-bar-fill" style={{ width: `${report.speech_pct}%`, background: '#10b981' }} /></div>}
           </div>
           <div className="report-metric report-metric-status">
             <p className="report-metric-label">Grammar</p>
-            <p className={`report-metric-value status-${(report.grammar_status || 'pending').toLowerCase()}`}>
+            <p className={`report-metric-value status-${(report.grammar_status || 'no-data').toLowerCase().replace(' ', '-')}`}>
               {report.grammar_status}
             </p>
             {report.grammar_pct > 0 && <div className="metric-bar"><div className="metric-bar-fill" style={{ width: `${report.grammar_pct}%`, background: '#8b5cf6' }} /></div>}
