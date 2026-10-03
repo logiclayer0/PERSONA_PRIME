@@ -15,8 +15,10 @@ class PoseAnalyzer:
         self.face_mesh = self.mp_face.FaceMesh(
             static_image_mode=False,
             max_num_faces=1,
+            refine_landmarks=True,
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5
+        )
         )
         self.events = []
         self.slot_start = time.time()
