@@ -3786,3 +3786,237 @@ button, input, select, textarea {
   padding: 8px 10px;
   margin: 4px 0;
 }
+/* ============ SIDEBAR FEATURED LINK ============ */
+.sidebar-link-featured {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--accent) 18%, transparent),
+    color-mix(in srgb, var(--accent-soft) 12%, transparent));
+  border: 1px solid var(--accent);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.sidebar-link-featured:hover {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--accent) 25%, transparent),
+    color-mix(in srgb, var(--accent-soft) 18%, transparent));
+  transform: translateY(-1px);
+}
+
+.sidebar-link-featured-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sidebar-link-featured-tag {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+
+.sidebar-nav-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+
+/* ============ DISCOVER PAGE ============ */
+.discover-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.discover-progress-wrap {
+  margin-bottom: 32px;
+}
+
+.discover-progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.discover-progress-pct {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.discover-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-elevated);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.discover-progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--accent), var(--accent-soft));
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.discover-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+}
+
+.discover-question {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 28px 0;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.discover-input {
+  font-size: 15px;
+  padding: 14px 18px;
+}
+
+.discover-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.discover-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.discover-option:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.discover-option-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-elevated));
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.discover-option-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.discover-option-active .discover-option-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.discover-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+
+.blueprint-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.blueprint-hero {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--accent) 10%, var(--bg-card)),
+    var(--bg-card));
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 48px;
+  text-align: center;
+}
+
+.blueprint-icon {
+  font-size: 64px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.blueprint-hero h2 {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+}
+
+.blueprint-hero p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin: 0 0 8px 0;
+}
+
+.blueprint-note {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.blueprint-preview {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.blueprint-preview h3 {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+}
+
+.blueprint-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.blueprint-list li {
+  padding: 14px 18px;
+  background: var(--bg-elevated);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
