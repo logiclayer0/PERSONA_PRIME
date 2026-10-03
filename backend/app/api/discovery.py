@@ -1,0 +1,105 @@
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.models.discovery import DiscoveryProfile
+from app.schemas.discovery_schema import DiscoverySave, DiscoveryResponse
+from app.data.discovery_questions import BASIC_QUESTIONS, PERSONALITY_QUESTIONS
+from app.api.auth import get_current_user
+import json
+
+router = APIRouter(prefix="/discovery", tags=["Discovery"])
+
+
+@router.get("/questions")
+def get_questions():
+    return {
+        "basic": BASIC_QUESTIONS,
+        "personality": PERSONALITY_QUESTIONS,
+        "total": len(BASIC_QUESTIONS) + len(PERSONALITY_QUESTIONS)
+    }
+
+
+@router.get("/profile", response_model=DiscoveryResponse)
+def get_profile(user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    profile = db.query(DiscoveryProfile).filter(DiscoveryProfile.user_id == user.id).first()
+    if not profile:
+        profile = DiscoveryProfile(user_id=user.id)
+        db.add(profile)
+        db.commit()
+        db.refresh(profile)
+
+    return profile
+
+
+@router.post("/save", response_model=DiscoveryResponse)
+def save_progress(payload: DiscoverySave, user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    profile = db.query(DiscoveryProfile).filter(DiscoveryProfile.user_id == user.id).first()
+    if not profile:
+        profile = DiscoveryProfile(user_id=user.id)
+        db.add(profile)
+        db.commit()
+        db.refresh(profile)
+
+    if payload.basic_info:
+        profile.full_name = payload.basic_info.full_name
+        profile.education_stream = payload.basic_info.education_stream
+        profile.education_level = payload.basic_info.education_level
+        profile.institution = payload.basic_info.institution
+        profile.current_year = payload.basic_info.current_year
+        profile.city = payload.basic_info.city
+
+    if payload.answers is not None:
+        existing = json.loads(profile.answers or "{}")
+        for ans in payload.answers:
+            existing[ans.question_id] = {
+                "question": ans.question_text,
+                "answer": ans.answer
+            }
+        profile.answers = json.dumps(existing)
+
+    if payload.interests is not None:
+        profile.interests = json.dumps(payload.interests)
+
+    if payload.skills is not None:
+        profile.skills = json.dumps(payload.skills)
+
+    profile.status = "in_progress"
+    db.commit()
+    db.refresh(profile)
+
+    return profile
+
+
+@router.post("/complete", response_model=DiscoveryResponse)
+def complete_discovery(user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    profile = db.query(DiscoveryProfile).filter(DiscoveryProfile.user_id == user.id).first()
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    profile.status = "completed"
+    db.commit()
+    db.refresh(profile)
+
+    return profile
+
+
+@router.delete("/reset")
+def reset_discovery(user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    profile = db.query(DiscoveryProfile).filter(DiscoveryProfile.user_id == user.id).first()
+    if profile:
+        db.delete(profile)
+        db.commit()
+
+    return {"status": "reset"}
