@@ -10,6 +10,8 @@ import ReportCard from './pages/ReportCard'
 import HomeDashboard from './pages/HomeDashboard'
 import Progress from './pages/Progress'
 import Settings from './pages/Settings'
+import Discover from './pages/Discover'
+import Blueprint from './pages/Blueprint'
 import FloatingAvatar from './components/FloatingAvatar'
 import AuthGuard from './components/AuthGuard'
 
@@ -19,7 +21,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage />} />
-
         <Route path="/home" element={<AuthGuard><HomeDashboard /></AuthGuard>} />
         <Route path="/role" element={<AuthGuard><RoleSelection /></AuthGuard>} />
         <Route path="/category" element={<AuthGuard><CategorySelection /></AuthGuard>} />
@@ -29,7 +30,8 @@ export default function App() {
         <Route path="/report" element={<AuthGuard><ReportCard /></AuthGuard>} />
         <Route path="/progress" element={<AuthGuard><Progress /></AuthGuard>} />
         <Route path="/settings" element={<AuthGuard><Settings /></AuthGuard>} />
-
+        <Route path="/discover" element={<AuthGuard><Discover /></AuthGuard>} />
+        <Route path="/blueprint" element={<AuthGuard><Blueprint /></AuthGuard>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <FloatingAvatar />
