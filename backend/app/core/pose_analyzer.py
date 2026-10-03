@@ -82,15 +82,16 @@ class PoseAnalyzer:
         eye_contact = "Good"
         if face_res.multi_face_landmarks:
             fl = face_res.multi_face_landmarks[0].landmark
-            avg_iris_y = (fl[468].y + fl[473].y) / 2
-            if abs(avg_iris_y - fl[1].y) > 0.08:
-                eye_contact = "Poor"
-                self.slot_data["poor_eye_contact"] += 1
-                self.events.append({
-                    "timestamp": ts,
-                    "type": "eye_contact",
-                    "message": "Looking away"
-                })
+            if len(fl) > 473:
+                avg_iris_y = (fl[468].y + fl[473].y) / 2
+                if abs(avg_iris_y - fl[1].y) > 0.08:
+                    eye_contact = "Poor"
+                    self.slot_data["poor_eye_contact"] += 1
+                    self.events.append({
+                        "timestamp": ts,
+                        "type": "eye_contact",
+                        "message": "Looking away"
+                    })
 
         if reasons:
             posture = f"Bad ({', '.join(reasons)})"
