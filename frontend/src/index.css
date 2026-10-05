@@ -4747,3 +4747,320 @@ button, input, select, textarea {
     grid-template-columns: 1fr;
   }
 }
+.blueprint-motivation {
+  position: relative;
+  padding: 60px 40px;
+  margin: 40px 0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #1a0533, #0a0a1a, #1a0533);
+  border: 2px solid var(--accent);
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 0 60px var(--accent-glow);
+}
+
+.blueprint-motivation-glow {
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(circle at center, var(--accent-glow), transparent 60%);
+  animation: motivation-pulse 4s ease-in-out infinite;
+}
+
+@keyframes motivation-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.1); }
+}
+
+.blueprint-motivation-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.blueprint-motivation-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 20px 0;
+}
+
+.blueprint-motivation-text {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.01em;
+  font-style: italic;
+}
+
+.blueprint-motivation-sign {
+  font-size: 14px;
+  color: var(--accent-soft);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.blueprint-progress-viz {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 28px;
+  margin-bottom: 24px;
+}
+
+.progress-timeline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 24px;
+  position: relative;
+}
+
+.progress-point {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.progress-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 3px solid var(--border-strong);
+  margin-bottom: 16px;
+  transition: all 0.3s;
+}
+
+.progress-dot-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+  animation: progress-dot-pulse 2s infinite;
+}
+
+@keyframes progress-dot-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border-strong);
+  margin-top: 9px;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progress-year {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.progress-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.progress-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.blueprint-signature {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--accent) 10%, var(--bg-card)),
+    var(--bg-card));
+  border: 2px solid var(--accent);
+  border-radius: 24px;
+  padding: 48px 32px;
+  margin: 40px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.blueprint-signature::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--accent-glow), transparent 40%);
+  opacity: 0.3;
+  animation: signature-rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes signature-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.blueprint-signature-badge {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.blueprint-signature-icon {
+  font-size: 48px;
+  display: inline-block;
+  animation: signature-bounce 2s ease-in-out infinite;
+}
+
+@keyframes signature-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.blueprint-signature-title {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 16px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.blueprint-signature-name {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.blueprint-signature-date {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.blueprint-signature-divider {
+  width: 80px;
+  height: 2px;
+  background: var(--accent);
+  margin: 28px auto;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.blueprint-signature-quote {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+.blueprint-cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.blueprint-cta-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+.blueprint-cta-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin: 0 0 28px 0;
+  line-height: 1.6;
+}
+
+.blueprint-cta-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.blueprint-cta-primary {
+  padding: 16px 40px;
+  font-size: 13px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft)) !important;
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.blueprint-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--accent-glow);
+}
+
+@media (max-width: 768px) {
+  .blueprint-motivation-text {
+    font-size: 20px;
+  }
+  .blueprint-signature-name {
+    font-size: 32px;
+  }
+  .progress-timeline {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .progress-line {
+    width: 2px;
+    height: 40px;
+    margin: 0 auto;
+  }
+  .progress-point {
+    flex-direction: row;
+    gap: 20px;
+    text-align: left;
+    width: 100%;
+  }
+  .progress-dot {
+    margin-bottom: 0;
+  }
+}
