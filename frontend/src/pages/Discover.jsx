@@ -8,9 +8,13 @@ const API_BASE = 'http://127.0.0.1:8000'
 export default function Discover() {
   const navigate = useNavigate()
   const user = useAppStore((s) => s.user)
-  const [questions, setQuestions] = useState({ basic: [], personality: [] })
+  const [questions, setQuestions] = useState({
+    basic: [], personality: [], stream_specific: [],
+    case_based: [], interests: [], aspiration: []
+  })
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({})
+  const [multiAnswers, setMultiAnswers] = useState({})
   const [basicInfo, setBasicInfo] = useState({
     full_name: '', education_stream: '', education_level: '',
     institution: '', current_year: '', city: ''
@@ -18,36 +22,31 @@ export default function Discover() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [saving, setSaving] = useState(false)
+  const [streamLoaded, setStreamLoaded] = useState(false)
 
   const allQuestions = [
     ...(Array.isArray(questions.basic) ? questions.basic : []),
-    ...(Array.isArray(questions.personality) ? questions.personality : [])
+    ...(Array.isArray(questions.personality) ? questions.personality : []),
+    ...(Array.isArray(questions.stream_specific) ? questions.stream_specific : []),
+    ...(Array.isArray(questions.case_based) ? questions.case_based : []),
+    ...(Array.isArray(questions.interests) ? questions.interests : []),
+    ...(Array.isArray(questions.aspiration) ? questions.aspiration : [])
   ]
+
   const currentQuestion = allQuestions[step]
   const totalSteps = allQuestions.length
   const progress = totalSteps > 0 ? ((step / totalSteps) * 100).toFixed(0) : 0
 
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`${API_BASE}/discovery/questions`)
-        if (!res.ok) {
-          setError(`Backend error: ${res.status}. Check if /discovery route exists.`)
-          return
-        }
-        const data = await res.json()
-        setQuestions({
-          basic: Array.isArray(data.basic) ? data.basic : [],
-          personality: Array.isArray(data.personality) ? data.personality : []
-        })
-      } catch (e) {
-        setError('Cannot connect to backend. Is it running?')
-      } finally {
-        setLoading(false)
-      }
-    }
-    load()
+    loadQuestions()
   }, [])
+
+  useEffect(() => {
+    if (basicInfo.education_stream && !streamLoaded) {
+      loadQuestions(basicInfo.education_stream)
+      setStreamLoaded(true)
+    }
+  }, [basicInfo.education_stream])
 
   useEffect(() => {
     if (user?.display_name) {
@@ -55,13 +54,54 @@ export default function Discover() {
     }
   }, [user])
 
-  const handleBasicChange = (id, value) => {
-    setBasicInfo((prev) => ({ ...prev, [id]: value }))
+  const loadQuestions = async (stream = null) => {
+    try {
+      const token = localStorage.getItem('token')
+      const url = stream
+        ? `${API_BASE}/discovery/questions?stream=${encodeURIComponent(stream)}`
+        : `${API_BASE}/discovery/questions`
+
+      const res = await fetch(url, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      if (!res.ok) {
+        setError(`Backend error: ${res.status}`)
+        return
+      }
+      const data = await res.json()
+      setQuestions({
+        basic: data.basic || [],
+        personality: data.personality || [],
+        stream_specific: data.stream_specific || [],
+        case_based: data.case_based || [],
+        interests: data.interests || [],
+        aspiration: data.aspiration || []
+      })
+    } catch (e) {
+      setError('Cannot connect to backend')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleTextChange = (id, value) => {
+    setAnswers((prev) => ({ ...prev, [id]: value }))
+    if (['full_name', 'education_stream', 'education_level', 'institution', 'current_year', 'city'].includes(id)) {
+      setBasicInfo((prev) => ({ ...prev, [id]: value }))
+    }
+  }
+
+  const handleMcq = (id, value) => {
     setAnswers((prev) => ({ ...prev, [id]: value }))
   }
 
-  const handleAnswer = (id, value) => {
-    setAnswers((prev) => ({ ...prev, [id]: value }))
+  const handleMulti = (id, option) => {
+    const current = multiAnswers[id] || []
+    const updated = current.includes(option)
+      ? current.filter((x) => x !== option)
+      : [...current, option]
+    setMultiAnswers((prev) => ({ ...prev, [id]: updated }))
+    setAnswers((prev) => ({ ...prev, [id]: updated }))
   }
 
   const handleNext = () => {
@@ -90,6 +130,9 @@ export default function Discover() {
         }
       })
 
+      const interestsList = multiAnswers['interests_multi'] || []
+      const skillsList = multiAnswers['skills_multi'] || []
+
       await fetch(`${API_BASE}/discovery/save`, {
         method: 'POST',
         headers: {
@@ -98,7 +141,9 @@ export default function Discover() {
         },
         body: JSON.stringify({
           basic_info: basicInfo.full_name ? basicInfo : null,
-          answers: answerList
+          answers: answerList,
+          interests: interestsList,
+          skills: skillsList
         })
       })
 
@@ -118,7 +163,12 @@ export default function Discover() {
   const isCurrentAnswered = () => {
     if (!currentQuestion) return false
     const val = answers[currentQuestion.id]
-    if (currentQuestion.required && (!val || (typeof val === 'string' && val.trim() === ''))) return false
+    if (currentQuestion.type === 'multi') {
+      return Array.isArray(val) && val.length > 0
+    }
+    if (currentQuestion.required) {
+      return val && (typeof val !== 'string' || val.trim() !== '')
+    }
     return true
   }
 
@@ -141,9 +191,6 @@ export default function Discover() {
             <div>
               <p className="info-title">Could not load questions</p>
               <p className="info-desc">{error}</p>
-              <p className="info-desc" style={{ marginTop: 8 }}>
-                Make sure backend is running and <code>/discovery/questions</code> endpoint exists.
-              </p>
             </div>
           </div>
         </div>
@@ -155,7 +202,7 @@ export default function Discover() {
     return (
       <AppLayout>
         <div className="dashboard-container">
-          <p className="text-muted-c">No questions available. Please check backend.</p>
+          <p className="text-muted-c">No questions available.</p>
         </div>
       </AppLayout>
     )
@@ -178,14 +225,18 @@ export default function Discover() {
           <h2 className="discover-question">{currentQuestion.question}</h2>
 
           {currentQuestion.type === 'text' && (
-            <input
-              type="text"
-              className="input-field discover-input"
-              placeholder={currentQuestion.placeholder || 'Type your answer...'}
-              value={answers[currentQuestion.id] || ''}
-              onChange={(e) => handleBasicChange(currentQuestion.id, e.target.value)}
-              autoFocus
-            />
+            <>
+              <textarea
+                className="input-field discover-input discover-textarea"
+                placeholder={currentQuestion.placeholder || 'Type your answer...'}
+                value={answers[currentQuestion.id] || ''}
+                onChange={(e) => handleTextChange(currentQuestion.id, e.target.value)}
+                rows={currentQuestion.id === 'aspiration_5year' || currentQuestion.id === 'aspiration_dream' ? 4 : 1}
+              />
+              {(currentQuestion.id === 'aspiration_5year' || currentQuestion.id === 'aspiration_dream') && (
+                <p className="discover-hint">✍️ Be honest. No filters. Write whatever comes to mind.</p>
+              )}
+            </>
           )}
 
           {currentQuestion.type === 'mcq' && (
@@ -196,9 +247,27 @@ export default function Discover() {
                   <button
                     key={opt}
                     className={`discover-option ${selected ? 'discover-option-active' : ''}`}
-                    onClick={() => handleAnswer(currentQuestion.id, opt)}
+                    onClick={() => handleMcq(currentQuestion.id, opt)}
                   >
                     <span className="discover-option-dot" />
+                    <span>{opt}</span>
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
+          {currentQuestion.type === 'multi' && (
+            <div className="discover-options discover-options-multi">
+              {currentQuestion.options.map((opt) => {
+                const selected = (multiAnswers[currentQuestion.id] || []).includes(opt)
+                return (
+                  <button
+                    key={opt}
+                    className={`discover-option discover-option-multi ${selected ? 'discover-option-active' : ''}`}
+                    onClick={() => handleMulti(currentQuestion.id, opt)}
+                  >
+                    <span className="discover-multi-check">{selected ? '✓' : ''}</span>
                     <span>{opt}</span>
                   </button>
                 )
