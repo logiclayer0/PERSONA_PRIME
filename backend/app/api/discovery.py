@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.discovery import DiscoveryProfile
 from app.schemas.discovery_schema import DiscoverySave, DiscoveryResponse, RoadmapRequest
-from app.data.discovery_questions import BASIC_QUESTIONS, PERSONALITY_QUESTIONS
+from app.data.discovery_questions import get_questions_for_user
 from app.api.auth import get_current_user
 from app.services.roadmap_service import RoadmapService
 import json
@@ -14,12 +14,13 @@ roadmap_service = RoadmapService()
 
 
 @router.get("/questions")
-def get_questions():
-    return {
-        "basic": BASIC_QUESTIONS,
-        "personality": PERSONALITY_QUESTIONS,
-        "total": len(BASIC_QUESTIONS) + len(PERSONALITY_QUESTIONS)
-    }
+def get_questions(stream: str = None, user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not stream and user:
+        profile = db.query(DiscoveryProfile).filter(DiscoveryProfile.user_id == user.id).first()
+        if profile and profile.education_stream:
+            stream = profile.education_stream
+
+    return get_questions_for_user(stream)
 
 
 @router.get("/profile", response_model=DiscoveryResponse)
@@ -119,6 +120,12 @@ def generate_roadmap(payload: RoadmapRequest = None, user=Depends(get_current_us
         "current_year": profile.current_year,
         "city": profile.city
     }
+
+    interests = json.loads(profile.interests or "[]")
+    skills = json.loads(profile.skills or "[]")
+
+    basic["interests"] = interests
+    basic["skills"] = skills
 
     extra = ""
     if payload and payload.extra_notes:
