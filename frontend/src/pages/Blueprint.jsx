@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import AppLayout from '../components/AppLayout'
 import PieChart from '../components/PieChart'
 import RadarChart from '../components/RadarChart'
+import { useAppStore } from '../store/useAppStore'
 
 const API_BASE = 'http://127.0.0.1:8000'
 
 export default function Blueprint() {
   const navigate = useNavigate()
+  const user = useAppStore((s) => s.user)
   const [profile, setProfile] = useState(null)
   const [roadmap, setRoadmap] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -211,6 +213,14 @@ export default function Blueprint() {
   }))
 
   const years = roadmap.roadmap_5_year || []
+
+  const getMotivation = () => {
+    const t = roadmap.personality_type || ''
+    if (t.includes('Introvert')) return "Your quiet strength is a superpower. The world needs depth, not noise. Build in silence, let success speak."
+    if (t.includes('Extrovert')) return "Your energy is contagious. Use it to lead, inspire, and bring people together. The stage is yours."
+    if (t.includes('Ambivert')) return "You have the rare gift of balance — deep thinker when needed, leader when required. Own it."
+    return "Your journey is unique. Trust the process, stay curious, and never stop growing."
+  }
 
   return (
     <AppLayout>
@@ -488,6 +498,86 @@ export default function Blueprint() {
               <li key={i} className="blueprint-list-item-success">{h}</li>
             ))}
           </ul>
+        </div>
+
+        <div className="blueprint-motivation">
+          <div className="blueprint-motivation-glow" />
+          <div className="blueprint-motivation-content">
+            <p className="blueprint-motivation-label">A Message From Your Future Self</p>
+            <h3 className="blueprint-motivation-text">{getMotivation()}</h3>
+            <p className="blueprint-motivation-sign">— You, 5 years from now</p>
+          </div>
+        </div>
+
+        <div className="blueprint-progress-viz">
+          <h3 className="blueprint-section-title">🚀 Your Journey Map</h3>
+          <div className="progress-timeline">
+            <div className="progress-point progress-point-current">
+              <div className="progress-dot progress-dot-active" />
+              <div className="progress-content">
+                <p className="progress-year">NOW</p>
+                <p className="progress-label">Discovery Complete</p>
+                <p className="progress-sub">You've identified who you are</p>
+              </div>
+            </div>
+            <div className="progress-line" />
+            <div className="progress-point">
+              <div className="progress-dot" />
+              <div className="progress-content">
+                <p className="progress-year">YEAR 1</p>
+                <p className="progress-label">Foundation Building</p>
+                <p className="progress-sub">Skills + habits + first wins</p>
+              </div>
+            </div>
+            <div className="progress-line" />
+            <div className="progress-point">
+              <div className="progress-dot" />
+              <div className="progress-content">
+                <p className="progress-year">YEAR 3</p>
+                <p className="progress-label">Specialization</p>
+                <p className="progress-sub">Deep expertise in chosen field</p>
+              </div>
+            </div>
+            <div className="progress-line" />
+            <div className="progress-point">
+              <div className="progress-dot" />
+              <div className="progress-content">
+                <p className="progress-year">YEAR 5</p>
+                <p className="progress-label">Impact & Growth</p>
+                <p className="progress-sub">Leading, mentoring, building</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="blueprint-signature">
+          <div className="blueprint-signature-badge">
+            <span className="blueprint-signature-icon">✨</span>
+          </div>
+          <h3 className="blueprint-signature-title">This Is Your Blueprint</h3>
+          <p className="blueprint-signature-name">{profile.full_name || user?.display_name}</p>
+          <p className="blueprint-signature-date">
+            Generated on {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
+          <div className="blueprint-signature-divider" />
+          <p className="blueprint-signature-quote">
+            "The best time to plant a tree was 20 years ago. The second best time is now."
+          </p>
+        </div>
+
+        <div className="blueprint-cta">
+          <h3 className="blueprint-cta-title">Ready to Start?</h3>
+          <p className="blueprint-cta-desc">
+            Your blueprint is ready. Now it's on you. Start with one action today.
+          </p>
+          <div className="blueprint-cta-actions">
+            <button className="btn-primary blueprint-cta-primary" onClick={downloadPDF}>
+              📄 DOWNLOAD FULL BLUEPRINT PDF
+            </button>
+            <button className="btn-ghost" onClick={() => navigate('/role')}>
+              🎯 Start Practice Session
+            </button>
+          </div>
         </div>
 
         <div className="blueprint-footer-actions">
