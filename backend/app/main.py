@@ -29,4 +29,4 @@ app.include_router(discovery.router)
 
 @app.get("/")
 def root():
-    return {"status": "Persona Prime backend is running", "version": "1.0.0"}
+    return {"status": "Persona Prime backend is running", "version": "1.1.0"}
