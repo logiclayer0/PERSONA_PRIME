@@ -8,6 +8,7 @@ from app.core.session_manager import session_manager_instance
 from app.core.streak_manager import StreakManager
 from app.core.grammar_analyzer import GrammarAnalyzer
 from app.services.llm_service import LLMService
+from app.api.auth import get_current_user
 from datetime import datetime
 import uuid
 import json
@@ -20,11 +21,14 @@ llm = LLMService()
 
 
 @router.post("/start")
-def start_session(payload: SessionCreate, user_id: int = 1, db: Session = Depends(get_db)):
+def start_session(payload: SessionCreate, user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail='Not authenticated')
+
     session_uuid = str(uuid.uuid4())
     new_session = PracticeSession(
         session_uuid=session_uuid,
-        user_id=user_id,
+        user_id=user.id,
         tutor_id=payload.tutor_id,
         category=payload.category,
         content_mode=payload.content_mode,
@@ -41,8 +45,14 @@ def start_session(payload: SessionCreate, user_id: int = 1, db: Session = Depend
 
 
 @router.post("/end/{session_uuid}")
-def end_session(session_uuid: str, user_id: int = 1, db: Session = Depends(get_db)):
+def end_session(session_uuid: str, user=Depends(get_current_user), db: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail='Not authenticated')
+
     summary = session_manager.get_summary(session_uuid)
+
+    if not user:
+        raise HTTPException(status_code=401, detail='Not authenticated')
 
     session = db.query(PracticeSession).filter(
         PracticeSession.session_uuid == session_uuid
@@ -78,7 +88,7 @@ def end_session(session_uuid: str, user_id: int = 1, db: Session = Depends(get_d
 
     points = streak_manager.calculate_points(final_status, confidence)
 
-    user = db.query(User).filter(User.id == user_id).first()
+    db_user = db.query(User).filter(User.id == user.id).first()
     if user:
         user.streak = streak_manager.update_streak(user.last_practice_date, user.streak)
         user.last_practice_date = datetime.utcnow()
@@ -102,7 +112,7 @@ def end_session(session_uuid: str, user_id: int = 1, db: Session = Depends(get_d
 
     db.commit()
     db.refresh(session)
-    db.refresh(user)
+    db.refresh(db_user)
 
     return {
         "session": {
@@ -128,7 +138,7 @@ def end_session(session_uuid: str, user_id: int = 1, db: Session = Depends(get_d
 
 
 @router.get("/report/{session_uuid}")
-def get_report(session_uuid: str, db: Session = Depends(get_db)):
+def get_report(session_uuid: str, user=Depends(get_current_user), db: Session = Depends(get_db)):
     session = db.query(PracticeSession).filter(
         PracticeSession.session_uuid == session_uuid
     ).first()
