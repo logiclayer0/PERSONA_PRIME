@@ -14,13 +14,13 @@ export default function NotificationBar() {
     if (localStorage.getItem(key)) return
 
     if (hour >= 18 && streak === 0) {
-      setMessage("🌙 Evening check-in: A quick 2-minute practice keeps your streak alive. Ready?")
+      setMessage("Evening check-in: A quick 2-minute practice keeps your streak alive. Ready?")
       setShow(true)
     } else if (streak >= 3) {
-      setMessage(`🔥 ${streak}-day streak! Don't break the chain. Practice today?`)
+      setMessage(`${streak}-day streak: Don't break the chain. Practice today?`)
       setShow(true)
     } else if (user.total_sessions === 0) {
-      setMessage("👋 Welcome to Persona Prime! Start your first session today.")
+      setMessage("Welcome to Persona Prime. Start your first session today.")
       setShow(true)
     }
   }, [user, streak])
