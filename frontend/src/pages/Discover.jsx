@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppLayout from '../components/AppLayout'
+import { API_BASE } from '../config'
 import { useAppStore } from '../store/useAppStore'
-
-const API_BASE = 'http://127.0.0.1:8000'
 
 export default function Discover() {
   const navigate = useNavigate()
@@ -234,7 +233,7 @@ export default function Discover() {
                 rows={currentQuestion.id === 'aspiration_5year' || currentQuestion.id === 'aspiration_dream' ? 4 : 1}
               />
               {(currentQuestion.id === 'aspiration_5year' || currentQuestion.id === 'aspiration_dream') && (
-                <p className="discover-hint">✍️ Be honest. No filters. Write whatever comes to mind.</p>
+                <p className="discover-hint">Be honest and specific. Your answers shape the assessment.</p>
               )}
             </>
           )}
@@ -281,14 +280,14 @@ export default function Discover() {
               onClick={handleBack}
               disabled={step === 0}
             >
-              ← Back
+              Back
             </button>
             <button
               className="btn-primary"
               onClick={handleNext}
               disabled={!isCurrentAnswered() || saving}
             >
-              {saving ? 'SAVING...' : step === totalSteps - 1 ? 'FINISH →' : 'Next →'}
+              {saving ? 'SAVING...' : step === totalSteps - 1 ? 'Complete Assessment' : 'Continue'}
             </button>
           </div>
         </div>
