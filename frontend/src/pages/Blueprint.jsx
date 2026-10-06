@@ -110,7 +110,7 @@ export default function Blueprint() {
   }
 
   const shareBlueprint = (platform) => {
-    const text = `I just got my personalized 5-year career blueprint from Persona Prime! Personality: ${roadmap.personality_type}. 🚀`
+    const text = `I just got my personalized 5-year career blueprint from Persona Prime! Personality: ${roadmap.personality_type}. `
     const url = window.location.href
 
     if (platform === 'linkedin') {
@@ -140,7 +140,7 @@ export default function Blueprint() {
       <AppLayout>
         <div className="dashboard-container">
           <div className="empty-state">
-            <span className="empty-icon">🔮</span>
+            <span className="empty-icon"></span>
             <h2 className="empty-title">No blueprint yet</h2>
             <p className="empty-desc">
               Complete the Discover Yourself quiz to unlock your personalized blueprint.
@@ -162,7 +162,7 @@ export default function Blueprint() {
       <AppLayout>
         <div className="dashboard-container">
           <div className="blueprint-intro">
-            <span className="blueprint-intro-icon">🔮</span>
+            <span className="blueprint-intro-icon"></span>
             <h1 className="blueprint-intro-title">Discovery Complete</h1>
             <p className="blueprint-intro-desc">
               You answered <strong>{totalAnswered}</strong> questions.
@@ -171,7 +171,7 @@ export default function Blueprint() {
 
             {error && (
               <div className="info-banner" style={{ marginTop: 24 }}>
-                <span className="info-icon">⚠️</span>
+                <span className="info-icon"></span>
                 <div>
                   <p className="info-title">Error</p>
                   <p className="info-desc">{error}</p>
@@ -184,7 +184,7 @@ export default function Blueprint() {
               disabled={generating}
               className="btn-primary blueprint-generate-btn"
             >
-              {generating ? '✨ ANALYZING YOUR PROFILE...' : '✨ GENERATE MY BLUEPRINT'}
+              {generating ? ' ANALYZING YOUR PROFILE...' : ' GENERATE MY BLUEPRINT'}
             </button>
 
             {generating && (
@@ -230,10 +230,10 @@ export default function Blueprint() {
             <p className="dashboard-subtitle">Deep analysis for {profile.full_name || 'you'}</p>
           </div>
           <div className="blueprint-header-actions">
-            <button className="btn-ghost" onClick={downloadPDF}>📄 PDF</button>
-            <button className="btn-ghost" onClick={() => shareBlueprint('linkedin')}>🔗 LinkedIn</button>
-            <button className="btn-ghost" onClick={() => shareBlueprint('twitter')}>🐦 Twitter</button>
-            <button className="btn-ghost" onClick={() => shareBlueprint('copy')}>📋 Copy</button>
+            <button className="btn-ghost" onClick={downloadPDF}> PDF</button>
+            <button className="btn-ghost" onClick={() => shareBlueprint('linkedin')}> LinkedIn</button>
+            <button className="btn-ghost" onClick={() => shareBlueprint('twitter')}> Twitter</button>
+            <button className="btn-ghost" onClick={() => shareBlueprint('copy')}> Copy</button>
           </div>
         </div>
 
@@ -252,7 +252,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">🧠 Personality Analysis</h3>
+          <h3 className="blueprint-section-title"> Personality Analysis</h3>
           <p className="blueprint-text">{roadmap.personality_analysis}</p>
         </div>
 
@@ -278,7 +278,7 @@ export default function Blueprint() {
 
         <div className="blueprint-two-col">
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title">✅ Strengths</h3>
+            <h3 className="blueprint-section-title"> Strengths</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.strengths || []).map((s, i) => (
                 <li key={i} className="blueprint-list-item-success">{s}</li>
@@ -286,7 +286,7 @@ export default function Blueprint() {
             </ul>
           </div>
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title">⚠️ Weaknesses</h3>
+            <h3 className="blueprint-section-title"> Weaknesses</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.weaknesses || []).map((w, i) => (
                 <li key={i} className="blueprint-list-item-warn">{w}</li>
@@ -296,7 +296,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">🎯 Career Recommendations</h3>
+          <h3 className="blueprint-section-title"> Career Recommendations</h3>
           <div className="career-cards">
             {(roadmap.career_fields || []).map((c, i) => (
               <div key={i} className="career-card">
@@ -306,9 +306,9 @@ export default function Blueprint() {
                 </div>
                 <p className="career-why">{c.why}</p>
                 <div className="career-meta">
-                  <span className="career-meta-item">💰 {c.salary_range}</span>
-                  <span className="career-meta-item">📈 {c.growth}</span>
-                  <span className="career-meta-item">⚡ {c.difficulty}</span>
+                  <span className="career-meta-item"> {c.salary_range}</span>
+                  <span className="career-meta-item"> {c.growth}</span>
+                  <span className="career-meta-item"> {c.difficulty}</span>
                 </div>
                 <div className="career-bar">
                   <div className="career-bar-fill" style={{ width: `${c.match}%` }} />
@@ -319,7 +319,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">🗺️ 5-Year Roadmap</h3>
+          <h3 className="blueprint-section-title"> 5-Year Roadmap</h3>
 
           <div className="roadmap-tabs">
             {years.map((y, i) => (
@@ -374,10 +374,10 @@ export default function Blueprint() {
 
         {roadmap.resources && (
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title">📚 Recommended Resources</h3>
+            <h3 className="blueprint-section-title"> Recommended Resources</h3>
 
             <div className="resource-category">
-              <h4 className="resource-cat-title">📖 Books</h4>
+              <h4 className="resource-cat-title"> Books</h4>
               <div className="resource-grid">
                 {(roadmap.resources.books || []).map((b, i) => (
                   <div key={i} className="resource-card">
@@ -390,7 +390,7 @@ export default function Blueprint() {
             </div>
 
             <div className="resource-category">
-              <h4 className="resource-cat-title">📺 YouTube Channels</h4>
+              <h4 className="resource-cat-title"> YouTube Channels</h4>
               <div className="resource-grid">
                 {(roadmap.resources.youtube_channels || []).map((y, i) => (
                   <div key={i} className="resource-card">
@@ -402,7 +402,7 @@ export default function Blueprint() {
             </div>
 
             <div className="resource-category">
-              <h4 className="resource-cat-title">🎓 Online Courses</h4>
+              <h4 className="resource-cat-title"> Online Courses</h4>
               <div className="resource-grid">
                 {(roadmap.resources.online_courses || []).map((c, i) => (
                   <div key={i} className="resource-card">
@@ -417,13 +417,13 @@ export default function Blueprint() {
         )}
 
         <div className="blueprint-section blueprint-brutal">
-          <h3 className="blueprint-section-title">💥 Direct Assessment</h3>
+          <h3 className="blueprint-section-title"> Direct Assessment</h3>
           <p className="blueprint-brutal-text">{roadmap.brutal_honesty}</p>
         </div>
 
         <div className="blueprint-two-col">
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title">👍 Pros</h3>
+            <h3 className="blueprint-section-title"> Pros</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.pros || []).map((p, i) => (
                 <li key={i} className="blueprint-list-item-success">{p}</li>
@@ -431,7 +431,7 @@ export default function Blueprint() {
             </ul>
           </div>
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title">👎 Cons</h3>
+            <h3 className="blueprint-section-title"> Cons</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.cons || []).map((c, i) => (
                 <li key={i} className="blueprint-list-item-warn">{c}</li>
@@ -441,7 +441,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">⚡ Immediate Actions</h3>
+          <h3 className="blueprint-section-title"> Immediate Actions</h3>
           <div className="action-grid">
             {(roadmap.immediate_actions || []).map((a, i) => {
               const action = typeof a === 'object' ? a.action : a
@@ -457,7 +457,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">🚫 Common Mistakes to Avoid</h3>
+          <h3 className="blueprint-section-title"> Common Mistakes to Avoid</h3>
           <ul className="blueprint-list-clean">
             {(roadmap.common_mistakes || []).map((m, i) => (
               <li key={i} className="blueprint-list-item-error">{m}</li>
@@ -467,22 +467,22 @@ export default function Blueprint() {
 
         <div className="blueprint-two-col">
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title">🧘 Mentor Advice</h3>
+            <h3 className="blueprint-section-title"> Mentor Advice</h3>
             <p className="blueprint-text">{roadmap.mentor_advice}</p>
           </div>
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title">💰 Financial Planning</h3>
+            <h3 className="blueprint-section-title"> Financial Planning</h3>
             <p className="blueprint-text">{roadmap.financial_planning}</p>
           </div>
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">🛟 Backup Plan</h3>
+          <h3 className="blueprint-section-title"> Backup Plan</h3>
           <p className="blueprint-text">{roadmap.backup_plan}</p>
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">🎤 Interview Prep Tips</h3>
+          <h3 className="blueprint-section-title"> Interview Prep Tips</h3>
           <ul className="blueprint-list-clean">
             {(roadmap.interview_prep || []).map((i, idx) => (
               <li key={idx} className="blueprint-list-item-info">{i}</li>
@@ -491,7 +491,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">🌅 Daily Habits</h3>
+          <h3 className="blueprint-section-title"> Daily Habits</h3>
           <ul className="blueprint-list-clean">
             {(roadmap.daily_habits || []).map((h, i) => (
               <li key={i} className="blueprint-list-item-success">{h}</li>
@@ -509,7 +509,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-progress-viz">
-          <h3 className="blueprint-section-title">🚀 Your Journey Map</h3>
+          <h3 className="blueprint-section-title"> Your Journey Map</h3>
           <div className="progress-timeline">
             <div className="progress-point progress-point-current">
               <div className="progress-dot progress-dot-active" />
@@ -551,7 +551,7 @@ export default function Blueprint() {
 
         <div className="blueprint-signature">
           <div className="blueprint-signature-badge">
-            <span className="blueprint-signature-icon">✨</span>
+            <span className="blueprint-signature-icon"></span>
           </div>
           <h3 className="blueprint-signature-title">This Is Your Blueprint</h3>
           <p className="blueprint-signature-name">{profile.full_name || user?.display_name}</p>
@@ -571,10 +571,10 @@ export default function Blueprint() {
           </p>
           <div className="blueprint-cta-actions">
             <button className="btn-primary blueprint-cta-primary" onClick={downloadPDF}>
-              📄 DOWNLOAD FULL BLUEPRINT PDF
+               DOWNLOAD FULL BLUEPRINT PDF
             </button>
             <button className="btn-ghost" onClick={() => navigate('/role')}>
-              🎯 Start Practice Session
+               Start Practice Session
             </button>
           </div>
         </div>
