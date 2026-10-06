@@ -5118,3 +5118,55 @@ button, input, select, textarea {
 .notif-bar { border-radius: 8px; margin: 10px 24px; }
 @media (max-width: 900px) { .development-path { grid-template-columns: 1fr; } .dashboard-next-step { align-items: flex-start; flex-direction: column; } }
 @media (max-width: 700px) { .sidebar { width: 68px; } .sidebar-brand-text, .sidebar-brand-sub, .sidebar-tutor-box, .sidebar-profile, .sidebar-logout { display: none; } .sidebar-link-label { display: none; } .dashboard-container { padding: 28px 18px; } .dashboard-greeting { font-size: 28px; } }
+
+/* ===== Product-grade UI layer ===== */
+:root {
+  --pp-surface-1: var(--bg-card, #111318);
+  --pp-surface-2: var(--bg-primary, #0a0b0e);
+  --pp-line: var(--border, #242832);
+  --pp-muted: var(--text-muted, #8b919d);
+  --pp-accent: var(--accent, #8fa3ff);
+}
+* { box-sizing: border-box; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.app-main { min-width: 0; background: var(--bg-primary); }
+.dashboard-container { min-height: 100%; }
+.dashboard-hero { padding-bottom: 28px; border-bottom: 1px solid var(--pp-line); margin-bottom: 24px; }
+.dashboard-greeting { max-width: 900px; font-weight: 650; }
+.dashboard-stats { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.stat-label { text-transform: uppercase; letter-spacing: .12em; font-size: 9px; font-weight: 750; }
+.stat-hint { color: var(--pp-muted); font-size: 11px; margin-top: 7px; }
+.dashboard-section { margin-top: 30px; }
+.section-title { font-weight: 650; }
+.development-step { min-height: 132px; }
+.development-step::after { content: '→'; margin-left: auto; color: var(--pp-muted); align-self: flex-end; }
+.quick-title { font-weight: 650; color: var(--text-primary); }
+.quick-desc { line-height: 1.55; }
+.btn-primary, .btn-ghost { min-height: 40px; border-radius: 8px; font-size: 11px; letter-spacing: .06em; }
+.empty-state { max-width: 620px; padding: 44px; border: 1px solid var(--pp-line); background: var(--pp-surface-1); border-radius: 14px; text-align: left; }
+.empty-icon { display: none; }
+.empty-title { font-size: 20px; font-weight: 650; }
+.info-banner { border-radius: 10px; }
+.info-icon { display: none; }
+.discover-container { max-width: 900px; margin: 0 auto; padding: 44px; }
+.discover-progress-wrap { margin-bottom: 18px; }
+.discover-step-label { text-transform: uppercase; letter-spacing: .12em; font-size: 9px; }
+.discover-card { border: 1px solid var(--pp-line); border-radius: 14px; background: var(--pp-surface-1); padding: 38px; box-shadow: none; }
+.discover-question { font-size: clamp(23px,3vw,32px); line-height: 1.2; font-weight: 600; max-width: 760px; }
+.discover-option { border-radius: 9px; }
+.discover-option:hover { transform: none; }
+.blueprint-container, .blueprint-page { max-width: 1180px; margin: 0 auto; padding: 40px 44px; }
+.blueprint-section { border: 1px solid var(--pp-line); border-radius: 12px; background: var(--pp-surface-1); padding: 24px; margin-bottom: 14px; box-shadow: none; }
+.blueprint-section-title { text-transform: uppercase; letter-spacing: .11em; font-weight: 750; }
+.resource-card, .action-card { border: 1px solid var(--pp-line); border-radius: 10px; background: transparent; box-shadow: none; }
+.report-page-container { max-width: 1180px; margin: 0 auto; padding: 40px 44px; }
+.report-avatar-card { border-radius: 12px; box-shadow: none; border: 1px solid var(--pp-line); }
+.report-actions { margin-top: 18px; }
+.studio-container { max-width: 1360px; margin: 0 auto; padding: 24px 28px 36px; }
+.studio-topbar { border-bottom: 1px solid var(--pp-line); }
+.surface-card { border: 1px solid var(--pp-line); box-shadow: none; border-radius: 12px; }
+.studio-intro-btn { border-radius: 8px; }
+.studio-meta-item { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.milestone-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.milestone { border: 1px solid var(--pp-line); border-radius: 9px; padding: 14px; background: var(--pp-surface-1); }
+@media(max-width:900px){ .dashboard-stats,.milestone-list{grid-template-columns:1fr}.discover-container,.blueprint-container,.blueprint-page,.report-page-container{padding:24px 18px}.discover-card{padding:24px}.studio-container{padding:18px}.development-path{grid-template-columns:1fr} }
