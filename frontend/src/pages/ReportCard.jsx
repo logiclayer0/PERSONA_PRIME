@@ -50,16 +50,16 @@ export default function ReportCardPage() {
 
         <div className="report-right">
           <h1 className="dashboard-greeting">Session Report</h1>
-          <p className="dashboard-subtitle">Your performance breakdown</p>
+          <p className="dashboard-subtitle">A structured breakdown of your communication performance.</p>
 
           {loading && <p className="text-muted-c">Loading report...</p>}
 
           {!sessionUuid && !loading && (
             <div className="empty-state">
-              <span className="empty-icon">📊</span>
+              <span className="empty-icon"></span>
               <h2 className="empty-title">No sessions yet</h2>
               <p className="empty-desc">
-                Complete a practice session to see your detailed report.
+                Complete a coached practice session to receive your performance analysis.
               </p>
               <button onClick={() => navigate('/role')} className="btn-primary mt-6">
                 Start First Session
@@ -69,7 +69,7 @@ export default function ReportCardPage() {
 
           {report && isPending && (
             <div className="info-banner">
-              <span className="info-icon">ℹ️</span>
+              <span className="info-icon"></span>
               <div>
                 <p className="info-title">This session hasn't been fully analyzed yet.</p>
                 <p className="info-desc">
@@ -87,7 +87,7 @@ export default function ReportCardPage() {
                 Practice Again
               </button>
               <button onClick={() => { reset(); navigate('/home') }} className="btn-ghost">
-                Back Home
+                Return to Dashboard
               </button>
             </div>
           )}
