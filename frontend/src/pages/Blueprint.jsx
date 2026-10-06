@@ -252,7 +252,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> Personality Analysis</h3>
+          <h3 className="blueprint-section-title">Personality Analysis</h3>
           <p className="blueprint-text">{roadmap.personality_analysis}</p>
         </div>
 
@@ -278,7 +278,7 @@ export default function Blueprint() {
 
         <div className="blueprint-two-col">
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title"> Strengths</h3>
+            <h3 className="blueprint-section-title">Strengths</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.strengths || []).map((s, i) => (
                 <li key={i} className="blueprint-list-item-success">{s}</li>
@@ -286,7 +286,7 @@ export default function Blueprint() {
             </ul>
           </div>
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title"> Weaknesses</h3>
+            <h3 className="blueprint-section-title">Weaknesses</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.weaknesses || []).map((w, i) => (
                 <li key={i} className="blueprint-list-item-warn">{w}</li>
@@ -296,7 +296,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> Career Recommendations</h3>
+          <h3 className="blueprint-section-title">Career Recommendations</h3>
           <div className="career-cards">
             {(roadmap.career_fields || []).map((c, i) => (
               <div key={i} className="career-card">
@@ -319,7 +319,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> 5-Year Roadmap</h3>
+          <h3 className="blueprint-section-title">5-Year Roadmap</h3>
 
           <div className="roadmap-tabs">
             {years.map((y, i) => (
@@ -374,10 +374,10 @@ export default function Blueprint() {
 
         {roadmap.resources && (
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title"> Recommended Resources</h3>
+            <h3 className="blueprint-section-title">Recommended Resources</h3>
 
             <div className="resource-category">
-              <h4 className="resource-cat-title"> Books</h4>
+              <h4 className="resource-cat-title">Books</h4>
               <div className="resource-grid">
                 {(roadmap.resources.books || []).map((b, i) => (
                   <div key={i} className="resource-card">
@@ -390,7 +390,7 @@ export default function Blueprint() {
             </div>
 
             <div className="resource-category">
-              <h4 className="resource-cat-title"> YouTube Channels</h4>
+              <h4 className="resource-cat-title">YouTube Channels</h4>
               <div className="resource-grid">
                 {(roadmap.resources.youtube_channels || []).map((y, i) => (
                   <div key={i} className="resource-card">
@@ -402,7 +402,7 @@ export default function Blueprint() {
             </div>
 
             <div className="resource-category">
-              <h4 className="resource-cat-title"> Online Courses</h4>
+              <h4 className="resource-cat-title">Online Courses</h4>
               <div className="resource-grid">
                 {(roadmap.resources.online_courses || []).map((c, i) => (
                   <div key={i} className="resource-card">
@@ -417,13 +417,13 @@ export default function Blueprint() {
         )}
 
         <div className="blueprint-section blueprint-brutal">
-          <h3 className="blueprint-section-title"> Direct Assessment</h3>
+          <h3 className="blueprint-section-title">Direct Assessment</h3>
           <p className="blueprint-brutal-text">{roadmap.brutal_honesty}</p>
         </div>
 
         <div className="blueprint-two-col">
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title"> Pros</h3>
+            <h3 className="blueprint-section-title">Pros</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.pros || []).map((p, i) => (
                 <li key={i} className="blueprint-list-item-success">{p}</li>
@@ -431,7 +431,7 @@ export default function Blueprint() {
             </ul>
           </div>
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title"> Cons</h3>
+            <h3 className="blueprint-section-title">Cons</h3>
             <ul className="blueprint-list-clean">
               {(roadmap.cons || []).map((c, i) => (
                 <li key={i} className="blueprint-list-item-warn">{c}</li>
