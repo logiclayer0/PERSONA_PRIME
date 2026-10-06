@@ -7,10 +7,10 @@ import TimelineReport from './TimelineReport'
 
 const FUNNY_HEADLINES = {
   COMPLETE: [
-    "You just made your old self jealous. 🔥",
+    "You just made your old self jealous. ",
     "Confidence: UNLOCKED. Keep going.",
     "That was smooth. Like butter on a hot pan.",
-    "Boss mode activated. ✅"
+    "Boss mode activated. "
   ],
   "NEEDS WORK": [
     "Not bad — but your potential is bigger than this.",
@@ -30,16 +30,16 @@ const FUNNY_HEADLINES = {
 
 const ACHIEVEMENTS = (report, streak, points) => {
   const list = []
-  if (report.final_status === 'COMPLETE') list.push({ icon: '🏆', label: 'Session Mastered', color: '#f59e0b' })
-  if (report.confidence_score >= 70) list.push({ icon: '⭐', label: 'High Confidence', color: '#a855f7' })
-  if (report.posture_pct >= 80) list.push({ icon: '🧘', label: 'Perfect Posture', color: '#10b981' })
-  if (report.eye_pct >= 80) list.push({ icon: '👁️', label: 'Eye Contact Pro', color: '#3b82f6' })
-  if (report.speech_pct >= 80) list.push({ icon: '🎤', label: 'Speech Star', color: '#ec4899' })
-  if (report.grammar_pct >= 85) list.push({ icon: '📚', label: 'Grammar Guru', color: '#8b5cf6' })
-  if (report.gesture_variety >= 3) list.push({ icon: '👋', label: 'Expressive Hands', color: '#14b8a6' })
-  if (report.fillers === 0) list.push({ icon: '✨', label: 'Filler Free', color: '#06b6d4' })
-  if (points >= 100) list.push({ icon: '💯', label: '100 Points Club', color: '#eab308' })
-  if (streak >= 3) list.push({ icon: '🔥', label: '3-Day Streak', color: '#ef4444' })
+  if (report.final_status === 'COMPLETE') list.push({ icon: '', label: 'Session Mastered', color: '#f59e0b' })
+  if (report.confidence_score >= 70) list.push({ icon: '', label: 'High Confidence', color: '#a855f7' })
+  if (report.posture_pct >= 80) list.push({ icon: '', label: 'Perfect Posture', color: '#10b981' })
+  if (report.eye_pct >= 80) list.push({ icon: '', label: 'Eye Contact Pro', color: '#3b82f6' })
+  if (report.speech_pct >= 80) list.push({ icon: '', label: 'Speech Star', color: '#ec4899' })
+  if (report.grammar_pct >= 85) list.push({ icon: '', label: 'Grammar Guru', color: '#8b5cf6' })
+  if (report.gesture_variety >= 3) list.push({ icon: '', label: 'Expressive Hands', color: '#14b8a6' })
+  if (report.fillers === 0) list.push({ icon: '', label: 'Filler Free', color: '#06b6d4' })
+  if (points >= 100) list.push({ icon: '', label: '100 Points Club', color: '#eab308' })
+  if (streak >= 3) list.push({ icon: '', label: '3-Day Streak', color: '#ef4444' })
   return list
 }
 
@@ -97,7 +97,7 @@ export default function ReportCard({ report, user }) {
 
       {hasSession && achievements.length > 0 && (
         <div className="report-section">
-          <h3 className="report-section-title">🏅 Performance Highlights</h3>
+          <h3 className="report-section-title"> Performance Highlights</h3>
           <div className="achievements-grid">
             {achievements.map((a, i) => (
               <div key={i} className="achievement-badge" style={{ borderColor: a.color }}>
@@ -112,7 +112,7 @@ export default function ReportCard({ report, user }) {
       {hasSession && chartData.length > 0 && (
         <div className="report-charts-grid">
           <div className="report-chart-card">
-            <h3 className="report-section-title">📊 Metric Breakdown</h3>
+            <h3 className="report-section-title"> Metric Breakdown</h3>
             <PieChart data={chartData} size={200} />
             <div className="report-legend">
               {chartData.map((d) => (
@@ -126,13 +126,13 @@ export default function ReportCard({ report, user }) {
           </div>
 
           <div className="report-chart-card">
-            <h3 className="report-section-title">📈 Comparative View</h3>
+            <h3 className="report-section-title"> Comparative View</h3>
             <BarChart data={chartData} height={220} />
           </div>
 
           {chartData.length >= 3 && (
             <div className="report-chart-card">
-              <h3 className="report-section-title">🕸️ Confidence Web</h3>
+              <h3 className="report-section-title"> Confidence Web</h3>
               <RadarChart data={chartData} size={260} />
             </div>
           )}
@@ -140,7 +140,7 @@ export default function ReportCard({ report, user }) {
       )}
 
       <div className="report-section">
-        <h3 className="report-section-title">📋 Detailed Metrics</h3>
+        <h3 className="report-section-title"> Detailed Metrics</h3>
         <div className="report-metrics-grid">
           <div className="report-metric report-metric-status">
             <p className="report-metric-label">Posture</p>
@@ -182,13 +182,13 @@ export default function ReportCard({ report, user }) {
 
       {hasSession && report.grammar_issues && report.grammar_issues.length > 0 && (
         <div className="report-section">
-          <h3 className="report-section-title">📚 Grammar Insights</h3>
+          <h3 className="report-section-title"> Grammar Insights</h3>
           <div className="grammar-issues-list">
             {report.grammar_issues.map((issue, i) => (
               <div key={i} className="grammar-issue">
-                <div className="grammar-issue-original">❌ "{issue.found || issue.original}"</div>
-                <div className="grammar-issue-correction">✅ "{issue.suggestion || issue.correction}"</div>
-                <div className="grammar-issue-rule">💡 {issue.rule || issue.explanation}</div>
+                <div className="grammar-issue-original"> "{issue.found || issue.original}"</div>
+                <div className="grammar-issue-correction"> "{issue.suggestion || issue.correction}"</div>
+                <div className="grammar-issue-rule"> {issue.rule || issue.explanation}</div>
               </div>
             ))}
           </div>
@@ -200,7 +200,7 @@ export default function ReportCard({ report, user }) {
 
       {hasSession && (
         <div className="report-section">
-          <h3 className="report-section-title">👋 Gesture Analysis</h3>
+          <h3 className="report-section-title"> Gesture Analysis</h3>
           <div className="report-extra">
             <div className="report-extra-item">
               <span className="extra-label">Dominant Gesture</span>
@@ -210,14 +210,14 @@ export default function ReportCard({ report, user }) {
               <span className="extra-label">Gesture Variety</span>
               <span className="extra-value">{report.gesture_variety || 0}</span>
               <span className="extra-hint">
-                {report.gesture_variety >= 3 ? '🎭 Expressive' : report.gesture_variety >= 1 ? '👍 Decent' : '😐 Static'}
+                {report.gesture_variety >= 3 ? ' Expressive' : report.gesture_variety >= 1 ? ' Decent' : ' Static'}
               </span>
             </div>
             <div className="report-extra-item">
               <span className="extra-label">Nervous Signals</span>
               <span className="extra-value">{report.nervous_signals || 0}</span>
               <span className="extra-hint">
-                {report.nervous_signals === 0 ? '✨ Calm' : report.nervous_signals < 5 ? '👍 Composed' : '⚠️ Anxious'}
+                {report.nervous_signals === 0 ? ' Calm' : report.nervous_signals < 5 ? ' Composed' : ' Anxious'}
               </span>
             </div>
           </div>
@@ -226,17 +226,17 @@ export default function ReportCard({ report, user }) {
 
       {report.wpm > 0 && (
         <div className="report-section">
-          <h3 className="report-section-title">🗣️ Speech Analytics</h3>
+          <h3 className="report-section-title"> Speech Analytics</h3>
           <div className="report-extra">
             <div className="report-extra-item">
               <span className="extra-label">Words / Minute</span>
               <span className="extra-value">{report.wpm}</span>
-              <span className="extra-hint">{report.wpm < 110 ? '🐢 Too Slow' : report.wpm > 160 ? '⚡ Too Fast' : '✅ Perfect'}</span>
+              <span className="extra-hint">{report.wpm < 110 ? ' Too Slow' : report.wpm > 160 ? ' Too Fast' : ' Perfect'}</span>
             </div>
             <div className="report-extra-item">
               <span className="extra-label">Filler Words</span>
               <span className="extra-value">{report.fillers || 0}</span>
-              <span className="extra-hint">{report.fillers === 0 ? '✨ Filler Free!' : report.fillers <= 2 ? '👍 Good' : '⚠️ Reduce'}</span>
+              <span className="extra-hint">{report.fillers === 0 ? ' Filler Free!' : report.fillers <= 2 ? ' Good' : ' Reduce'}</span>
             </div>
             <div className="report-extra-item">
               <span className="extra-label">Pace</span>
@@ -248,14 +248,14 @@ export default function ReportCard({ report, user }) {
 
       {user && (
         <div className="report-section">
-          <h3 className="report-section-title">🔥 Your Streak</h3>
+          <h3 className="report-section-title"> Your Streak</h3>
           <StreakCalendar streak={user.streak || 0} />
         </div>
       )}
 
       {report.ai_feedback && (
         <div className="report-section">
-          <h3 className="report-section-title">💬 Coach's Note</h3>
+          <h3 className="report-section-title"> Coach's Note</h3>
           <div className="report-feedback">
             <pre className="report-feedback-body">{report.ai_feedback}</pre>
           </div>
@@ -264,7 +264,7 @@ export default function ReportCard({ report, user }) {
 
       {report.events && report.events.length > 0 && (
         <div className="report-section">
-          <h3 className="report-section-title">⏱️ Session Timeline</h3>
+          <h3 className="report-section-title"> Session Timeline</h3>
           <TimelineReport events={report.events} />
         </div>
       )}
