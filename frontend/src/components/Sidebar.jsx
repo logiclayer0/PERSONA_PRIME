@@ -2,30 +2,23 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useAppStore } from '../store/useAppStore'
 import { TUTORS } from '../data/tutors'
-import ThemeToggle from './ThemeToggle'
 import TutorModal from './TutorModal'
 
-const TOP_NAV = [
-  { path: '/discover', label: 'Discover Yourself', icon: '🔮', featured: true }
-]
-
 const NAV_ITEMS = [
-  { path: '/home', label: 'Dashboard', icon: '🏠' },
-  { path: '/role', label: 'Practice', icon: '🎯' },
-  { path: '/report', label: 'Reports', icon: '📊' },
-  { path: '/progress', label: 'Progress', icon: '📈' },
-  { path: '/settings', label: 'Settings', icon: '⚙️' }
+  { path: '/home', label: 'Dashboard' },
+  { path: '/discover', label: 'Discover Yourself', featured: true },
+  { path: '/role', label: 'Practice' },
+  { path: '/progress', label: 'Progress' },
+  { path: '/report', label: 'Reports' },
+  { path: '/settings', label: 'Settings' }
 ]
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false)
   const [tutorOpen, setTutorOpen] = useState(false)
   const user = useAppStore((s) => s.user)
-  const points = useAppStore((s) => s.points)
-  const streak = useAppStore((s) => s.streak)
   const tutor = useAppStore((s) => s.tutor)
   const navigate = useNavigate()
-
   const activeTutor = tutor || TUTORS[0]
 
   const handleLogout = () => {
@@ -40,81 +33,34 @@ export default function Sidebar() {
 
   return (
     <>
-      <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
+      <aside className={'sidebar ' + (collapsed ? 'sidebar-collapsed' : '')}>
         <div className="sidebar-header">
           <div className="sidebar-brand">
             <span className="sidebar-logo">P</span>
-            {!collapsed && (
-              <div>
-                <p className="sidebar-brand-text">PERSONA</p>
-                <p className="sidebar-brand-sub">PRIME</p>
-              </div>
-            )}
+            {!collapsed && <div><p className="sidebar-brand-text">PERSONA</p><p className="sidebar-brand-sub">PRIME</p></div>}
           </div>
-          <button className="sidebar-toggle" onClick={() => setCollapsed(!collapsed)}>
+          <button className="sidebar-toggle" onClick={() => setCollapsed(!collapsed)} aria-label={collapsed ? 'Expand navigation' : 'Collapse navigation'}>
             {collapsed ? '→' : '←'}
           </button>
         </div>
 
         {!collapsed && (
-          <div
-            className="sidebar-tutor-box"
-            onClick={() => setTutorOpen(true)}
-            style={{ borderColor: activeTutor.color + '66' }}
-          >
-            <div
-              className="sidebar-tutor-avatar-letter"
-              style={{
-                background: `linear-gradient(135deg, ${activeTutor.color}, ${activeTutor.colorSoft})`,
-                boxShadow: `0 0 16px ${activeTutor.bgGlow}`
-              }}
-            >
+          <button className="sidebar-tutor-box" onClick={() => setTutorOpen(true)} style={{ borderColor: activeTutor.color + '66' }}>
+            <div className="sidebar-tutor-avatar-letter" style={{ background: 'linear-gradient(135deg, ' + activeTutor.color + ', ' + activeTutor.colorSoft + ')', boxShadow: '0 0 16px ' + activeTutor.bgGlow }}>
               {activeTutor.name.charAt(0)}
             </div>
             <div className="sidebar-tutor-info">
+              <p className="sidebar-tutor-label">Current coach</p>
               <p className="sidebar-tutor-name">{activeTutor.name}</p>
-              <p className="sidebar-tutor-tagline" style={{ color: activeTutor.color }}>
-                {activeTutor.tagline}
-              </p>
             </div>
-            <span className="sidebar-tutor-change" style={{ color: activeTutor.color }}>
-              ↻
-            </span>
-          </div>
+            <span className="sidebar-tutor-change">Change</span>
+          </button>
         )}
 
         <nav className="sidebar-nav">
-          {TOP_NAV.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `sidebar-link sidebar-link-featured ${isActive ? 'sidebar-link-active' : ''}`
-              }
-              title={collapsed ? item.label : ''}
-            >
-              <span className="sidebar-link-icon">{item.icon}</span>
-              {!collapsed && (
-                <div className="sidebar-link-featured-info">
-                  <span className="sidebar-link-label">{item.label}</span>
-                  <span className="sidebar-link-featured-tag">New</span>
-                </div>
-              )}
-            </NavLink>
-          ))}
-
-          <div className="sidebar-nav-divider" />
-
           {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
-              }
-              title={collapsed ? item.label : ''}
-            >
-              <span className="sidebar-link-icon">{item.icon}</span>
+            <NavLink key={item.path} to={item.path} title={collapsed ? item.label : ''} className={({ isActive }) => 'sidebar-link ' + (item.featured ? 'sidebar-link-featured ' : '') + (isActive ? 'sidebar-link-active' : '')}>
+              <span className="sidebar-link-mark" aria-hidden="true" />
               {!collapsed && <span className="sidebar-link-label">{item.label}</span>}
             </NavLink>
           ))}
@@ -130,40 +76,11 @@ export default function Sidebar() {
           </div>
         )}
 
-        {!collapsed && (
-          <div className="sidebar-stats">
-            <div className="sidebar-stat">
-              <span className="sidebar-stat-icon">🔥</span>
-              <div>
-                <p className="sidebar-stat-label">Streak</p>
-                <p className="sidebar-stat-value">{streak} d</p>
-              </div>
-            </div>
-            <div className="sidebar-stat">
-              <span className="sidebar-stat-icon">⭐</span>
-              <div>
-                <p className="sidebar-stat-label">Points</p>
-                <p className="sidebar-stat-value">{points}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
         <div className="sidebar-footer">
-          <ThemeToggle />
-          {!collapsed && (
-            <button className="sidebar-logout" onClick={handleLogout}>
-              Logout
-            </button>
-          )}
+          {!collapsed && <button className="sidebar-logout" onClick={handleLogout}>Log out</button>}
         </div>
       </aside>
-
-      <TutorModal
-        open={tutorOpen}
-        onClose={() => setTutorOpen(false)}
-        firstTime={false}
-      />
+      <TutorModal open={tutorOpen} onClose={() => setTutorOpen(false)} firstTime={false} />
     </>
   )
 }
