@@ -19,12 +19,10 @@ streak_manager = StreakManager()
 grammar_analyzer = GrammarAnalyzer()
 llm = LLMService()
 
-
 @router.post("/start")
 def start_session(payload: SessionCreate, user=Depends(get_current_user), db: Session = Depends(get_db)):
     if not user:
-        raise HTTPException(status_code=401, detail='Not authenticated')
-
+        raise HTTPException(status_code=401, detail="Not authenticated")
     session_uuid = str(uuid.uuid4())
     new_session = PracticeSession(
         session_uuid=session_uuid,
@@ -38,62 +36,44 @@ def start_session(payload: SessionCreate, user=Depends(get_current_user), db: Se
     db.add(new_session)
     db.commit()
     db.refresh(new_session)
-
     session_manager.create_session(session_uuid, payload.tutor_id, payload.category)
-
     return {"session_uuid": session_uuid, "data": new_session}
-
 
 @router.post("/end/{session_uuid}")
 def end_session(session_uuid: str, user=Depends(get_current_user), db: Session = Depends(get_db)):
     if not user:
-        raise HTTPException(status_code=401, detail='Not authenticated')
-
-    summary = session_manager.get_summary(session_uuid)
-
-    if not user:
-        raise HTTPException(status_code=401, detail='Not authenticated')
-
-    session = db.query(PracticeSession).filter(
-        PracticeSession.session_uuid == session_uuid
-    ).first()
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    session = db.query(PracticeSession).filter(PracticeSession.session_uuid == session_uuid).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found in DB")
+    if session.user_id != user.id:
+        raise HTTPException(status_code=403, detail="Session does not belong to the current user")
 
+    summary = session_manager.get_summary(session_uuid)
     if not summary:
         session.final_status = "NO DATA"
         session.ai_feedback = "No data was captured this session. Next time, keep the camera on and speak for at least 30 seconds."
         db.commit()
         db.refresh(session)
-        return {
-            "session": {"session_uuid": session.session_uuid, "final_status": "NO DATA"},
-            "breakdown": None,
-            "user": {"streak": 0, "points": 0, "total_sessions": 0}
-        }
+        return {"session": {"session_uuid": session.session_uuid, "final_status": "NO DATA"}, "breakdown": None, "user": {"streak": user.streak, "points": user.points, "total_sessions": user.total_sessions}}
 
     transcript = summary.get("transcript", "")
     grammar_result = grammar_analyzer.analyze(transcript)
     session_manager.add_grammar_result(session_uuid, grammar_result)
-
     summary = session_manager.get_summary(session_uuid)
-
     confidence = summary["confidence_score"]
     final_status = summary["final_status"]
 
-    feedback = ""
     try:
         feedback = llm.generate_feedback(transcript or "No speech detected", summary)
     except Exception:
-        feedback = "Coach is busy right now — but you showed up. That's what matters."
+        feedback = "The coaching service is temporarily unavailable. Your session data was still recorded."
 
     points = streak_manager.calculate_points(final_status, confidence)
-
-    db_user = db.query(User).filter(User.id == user.id).first()
-    if user:
-        user.streak = streak_manager.update_streak(user.last_practice_date, user.streak)
-        user.last_practice_date = datetime.utcnow()
-        user.points += points
-        user.total_sessions += 1
+    user.streak = streak_manager.update_streak(user.last_practice_date, user.streak)
+    user.last_practice_date = datetime.utcnow()
+    user.points += points
+    user.total_sessions += 1
 
     session.posture_status = summary["posture_status"]
     session.eye_contact_status = summary["eye_contact_status"]
@@ -107,12 +87,10 @@ def end_session(session_uuid: str, user=Depends(get_current_user), db: Session =
     session.ai_feedback = feedback
 
     live = session_manager.get_session(session_uuid)
-    events = live.get("events", []) if live else []
-    session.events = json.dumps(events)
-
+    session.events = json.dumps(live.get("events", []) if live else [])
     db.commit()
     db.refresh(session)
-    db.refresh(db_user)
+    db.refresh(user)
 
     return {
         "session": {
@@ -129,24 +107,20 @@ def end_session(session_uuid: str, user=Depends(get_current_user), db: Session =
             "transcript": session.transcript
         },
         "breakdown": summary,
-        "user": {
-            "streak": user.streak,
-            "points": user.points,
-            "total_sessions": user.total_sessions
-        }
+        "user": {"streak": user.streak, "points": user.points, "total_sessions": user.total_sessions}
     }
-
 
 @router.get("/report/{session_uuid}")
 def get_report(session_uuid: str, user=Depends(get_current_user), db: Session = Depends(get_db)):
-    session = db.query(PracticeSession).filter(
-        PracticeSession.session_uuid == session_uuid
-    ).first()
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    session = db.query(PracticeSession).filter(PracticeSession.session_uuid == session_uuid).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
+    if session.user_id != user.id:
+        raise HTTPException(status_code=403, detail="Session does not belong to the current user")
 
     summary = session_manager.get_summary(session_uuid)
-
     return {
         "session_uuid": session.session_uuid,
         "category": session.category,
