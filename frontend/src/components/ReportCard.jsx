@@ -81,7 +81,7 @@ export default function ReportCard({ report, user }) {
             {report.final_status || 'PENDING'}
           </div>
           <h2 className="report-score-big">{overall}<span>%</span></h2>
-          <p className="report-score-label">Confidence Score</p>
+          <p className="report-score-label">Communication Confidence Index</p>
           {report.points_earned > 0 && (
             <p className="report-points-badge">+{report.points_earned} points earned</p>
           )}
@@ -97,7 +97,7 @@ export default function ReportCard({ report, user }) {
 
       {hasSession && achievements.length > 0 && (
         <div className="report-section">
-          <h3 className="report-section-title">🏅 Achievements Unlocked</h3>
+          <h3 className="report-section-title">🏅 Performance Highlights</h3>
           <div className="achievements-grid">
             {achievements.map((a, i) => (
               <div key={i} className="achievement-badge" style={{ borderColor: a.color }}>
