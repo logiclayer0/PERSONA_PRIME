@@ -4,8 +4,7 @@ import AppLayout from '../components/AppLayout'
 import PieChart from '../components/PieChart'
 import RadarChart from '../components/RadarChart'
 import { useAppStore } from '../store/useAppStore'
-
-const API_BASE = 'http://127.0.0.1:8000'
+import { API_BASE } from '../config'
 
 export default function Blueprint() {
   const navigate = useNavigate()
@@ -185,7 +184,7 @@ export default function Blueprint() {
               disabled={generating}
               className="btn-primary blueprint-generate-btn"
             >
-              {generating ? '✨ ANALYZING YOUR PROFILE...' : '✨ GENERATE MY DEEP BLUEPRINT'}
+              {generating ? '✨ ANALYZING YOUR PROFILE...' : '✨ GENERATE MY BLUEPRINT'}
             </button>
 
             {generating && (
@@ -418,7 +417,7 @@ export default function Blueprint() {
         )}
 
         <div className="blueprint-section blueprint-brutal">
-          <h3 className="blueprint-section-title">💥 Brutal Honesty</h3>
+          <h3 className="blueprint-section-title">💥 Direct Assessment</h3>
           <p className="blueprint-brutal-text">{roadmap.brutal_honesty}</p>
         </div>
 
@@ -503,7 +502,7 @@ export default function Blueprint() {
         <div className="blueprint-motivation">
           <div className="blueprint-motivation-glow" />
           <div className="blueprint-motivation-content">
-            <p className="blueprint-motivation-label">A Message From Your Future Self</p>
+            <p className="blueprint-motivation-label">A Perspective From Your Future Self</p>
             <h3 className="blueprint-motivation-text">{getMotivation()}</h3>
             <p className="blueprint-motivation-sign">— You, 5 years from now</p>
           </div>
