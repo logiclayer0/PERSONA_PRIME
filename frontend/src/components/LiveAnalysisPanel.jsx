@@ -41,7 +41,7 @@ export default function LiveAnalysisPanel({ vision, audio }) {
           </div>
           {vision.nervous && (
             <div className="live-metric live-metric-warn">
-              <span className="live-metric-label">⚠️ Nervous Movement</span>
+              <span className="live-metric-label">Nervous Movement</span>
               <span className="live-metric-value">Detected</span>
             </div>
           )}
