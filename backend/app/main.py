@@ -1,15 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
+from app.config import get_settings
+
+settings = get_settings()
 from app.api import auth, video_stream, audio_stream, analytics, script_generator, avatar, discovery
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Persona Prime API", version="1.0.0")
+app = FastAPI(title="Persona Prime API", version="1.1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[o.strip() for o in settings.FRONTEND_ORIGINS.split(',') if o.strip()],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
