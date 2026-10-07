@@ -6,7 +6,6 @@ import { ThemeProvider } from './context/ThemeContext'
 import { useAppStore } from './store/useAppStore'
 import { getMe } from './services/authService'
 import './index.css'
-
 function Bootstrap() {
   const setUser = useAppStore((s) => s.setUser)
   const setToken = useAppStore((s) => s.setToken)
