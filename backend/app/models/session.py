@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Float
 from datetime import datetime
 from app.database import Base
-
-
 class PracticeSession(Base):
     __tablename__ = "practice_sessions"
 
