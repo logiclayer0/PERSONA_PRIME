@@ -22,25 +22,26 @@ export default function HomeDashboard() {
   return (
     <AppLayout>
       <div className="dashboard-container">
-        <section className="home-hero">
-          <div className="home-hero-top"><span className="home-status"><i></i> PERSONAL DEVELOPMENT SYSTEM</span><span className="home-index">01 — 04</span></div>
-          <div className="home-command">
-          <div className="home-command-copy">
-            <p className="dashboard-eyebrow">PERSONA PRIME / PERSONAL DEVELOPMENT</p>
-            <h1 className="dashboard-greeting">Build a clearer version of yourself.</h1>
-            <p className="dashboard-subtitle">Discover your strengths, turn them into direction, and practice the skills that move you forward.</p>
-            <div className="home-command-actions">
-              <Link to={hasDiscovery ? '/blueprint' : '/discover'} className="btn-primary">{hasDiscovery ? 'Open My Blueprint' : 'Begin Discovery'}</Link>
-              <Link to="/role" className="btn-ghost">Practice a Skill</Link>
+        <section className="home-hero home-hero-v2">
+          <div className="home-hero-v2-grid">
+            <div className="home-hero-v2-copy">
+              <div className="home-v2-eyebrow"><span className="home-v2-pulse"></span> PERSONA PRIME</div>
+              <h1>Don't just choose<br/><span>your future.</span><br/>Understand it.</h1>
+              <p>Discover who you are. Build a direction that fits you. Then turn that direction into skills you can actually practice.</p>
+              <div className="home-v2-actions">
+                <Link to={hasDiscovery ? '/blueprint' : '/discover'} className="home-v2-primary">{hasDiscovery ? 'Continue to Blueprint' : 'Start Your Discovery'} <span>↗</span></Link>
+                <Link to="/role" className="home-v2-secondary">Explore Practice</Link>
+              </div>
+            </div>
+            <div className="home-v2-visual">
+              <div className="home-v2-ring ring-1"></div><div className="home-v2-ring ring-2"></div><div className="home-v2-ring ring-3"></div>
+              <div className="home-v2-core"><strong>YOU</strong><span>SELF → SKILLS<br/>→ DIRECTION</span></div>
+              <div className="home-v2-node node-self"><b>01</b><small>SELF</small></div>
+              <div className="home-v2-node node-skill"><b>02</b><small>SKILLS</small></div>
+              <div className="home-v2-node node-direction"><b>03</b><small>DIRECTION</small></div>
             </div>
           </div>
-          <div className="home-command-visual">
-            <div className="home-orbit orbit-a"></div><div className="home-orbit orbit-b"></div>
-            <div className="home-orbit-core"><span>PP</span><small>PERSONA<br/>PRIME</small></div>
-            <div className="home-orbit-label label-top">SELF</div><div className="home-orbit-label label-right">SKILLS</div><div className="home-orbit-label label-bottom">DIRECTION</div>
-          </div>
-          </div>
-          <div className="home-hero-bottom"><span>SELF-DISCOVERY</span><span className="home-hero-line"></span><span>CAREER DIRECTION</span><span className="home-hero-line"></span><span>REAL-WORLD PRACTICE</span></div>
+          <div className="home-v2-footer"><span>PERSONALIZED</span><i></i><span>ADAPTIVE</span><i></i><span>MEASURABLE</span><i></i><span>BUILT AROUND YOU</span></div>
         </section>
 
         <section className="home-metrics">
