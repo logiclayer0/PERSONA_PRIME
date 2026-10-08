@@ -237,6 +237,13 @@ export default function Blueprint() {
           </div>
         </div>
 
+        <div className="blueprint-reading-map">
+          <div className="blueprint-reading-step"><span>01 / PROFILE</span><strong>Who you are</strong><small>Personality, traits and strengths</small></div>
+          <div className="blueprint-reading-step"><span>02 / FIT</span><strong>Where you fit</strong><small>Career matches and reasoning</small></div>
+          <div className="blueprint-reading-step"><span>03 / PATH</span><strong>Where you're going</strong><small>Five-year direction and milestones</small></div>
+          <div className="blueprint-reading-step"><span>04 / ACTION</span><strong>What to do next</strong><small>Habits, skills and immediate moves</small></div>
+        </div>
+
         <div className="blueprint-hero-card">
           <div className="blueprint-hero-left">
             <p className="blueprint-label">Personality Type</p>
@@ -251,10 +258,18 @@ export default function Blueprint() {
           </div>
         </div>
 
+        <div className="blueprint-insight-strip">
+          <div className="blueprint-insight blueprint-insight-primary"><p className="blueprint-insight-label">Your profile signal</p><p className="blueprint-insight-value">{roadmap.personality_type}</p><p className="blueprint-insight-note">The pattern Persona Prime sees most strongly</p></div>
+          <div className="blueprint-insight"><p className="blueprint-insight-label">Confidence</p><p className="blueprint-insight-value">{roadmap.confidence_score}%</p><p className="blueprint-insight-note">Profile confidence</p></div>
+          <div className="blueprint-insight"><p className="blueprint-insight-label">Career options</p><p className="blueprint-insight-value">{(roadmap.career_fields || []).length}</p><p className="blueprint-insight-note">Matched directions</p></div>
+          <div className="blueprint-insight"><p className="blueprint-insight-label">Time horizon</p><p className="blueprint-insight-value">5 yrs</p><p className="blueprint-insight-note">From foundation to impact</p></div>
+        </div>
+
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">Personality Analysis</h3>
+          <div className="blueprint-section-intro"><div><h3 className="blueprint-section-title">Personality Analysis</h3></div><p>Not a label — a working profile. Use this section to understand the patterns behind the recommendations that follow.</p></div>
           <p className="blueprint-text">{roadmap.personality_analysis}</p>
         </div>
+        <div className="blueprint-callout"><span className="blueprint-callout-mark"></span><p><strong>How to read your Blueprint:</strong> start with the profile, challenge the career matches, then use the roadmap and action plan to test the recommendations in real life.</p></div>
 
         <div className="blueprint-charts-grid">
           <div className="blueprint-chart-card">
@@ -295,8 +310,14 @@ export default function Blueprint() {
           </div>
         </div>
 
+        <div className="blueprint-actions-rail">
+          <div className="blueprint-action-rail-card"><span>01 / UNDERSTAND</span><h4>Know your pattern</h4><p>Use your strengths and weaknesses as a starting point, not a fixed identity.</p></div>
+          <div className="blueprint-action-rail-card"><span>02 / TEST</span><h4>Try before you commit</h4><p>Turn promising career matches into small projects, conversations and experiments.</p></div>
+          <div className="blueprint-action-rail-card"><span>03 / BUILD</span><h4>Make progress visible</h4><p>Use practice sessions and milestones to turn the blueprint into evidence.</p></div>
+        </div>
+
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title">Career Recommendations</h3>
+          <div className="blueprint-section-intro"><div><h3 className="blueprint-section-title">Career Recommendations</h3></div><p>These are directions to explore, not decisions made for you. The match score is a starting signal.</p></div>
           <div className="career-cards">
             {(roadmap.career_fields || []).map((c, i) => (
               <div key={i} className="career-card">
@@ -416,9 +437,9 @@ export default function Blueprint() {
           </div>
         )}
 
-        <div className="blueprint-section blueprint-brutal">
-          <h3 className="blueprint-section-title">Direct Assessment</h3>
-          <p className="blueprint-brutal-text">{roadmap.brutal_honesty}</p>
+        <div className="blueprint-quote-card">
+          <p>{roadmap.brutal_honesty}</p>
+          <small>Direct assessment · use this as a challenge, not a verdict</small>
         </div>
 
         <div className="blueprint-two-col">
@@ -441,7 +462,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> Immediate Actions</h3>
+          <h3 className="blueprint-section-title">Immediate Actions</h3>
           <div className="action-grid">
             {(roadmap.immediate_actions || []).map((a, i) => {
               const action = typeof a === 'object' ? a.action : a
@@ -457,7 +478,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> Common Mistakes to Avoid</h3>
+          <h3 className="blueprint-section-title">Common Mistakes to Avoid</h3>
           <ul className="blueprint-list-clean">
             {(roadmap.common_mistakes || []).map((m, i) => (
               <li key={i} className="blueprint-list-item-error">{m}</li>
@@ -467,22 +488,22 @@ export default function Blueprint() {
 
         <div className="blueprint-two-col">
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title"> Mentor Advice</h3>
+            <h3 className="blueprint-section-title">Mentor Advice</h3>
             <p className="blueprint-text">{roadmap.mentor_advice}</p>
           </div>
           <div className="blueprint-section">
-            <h3 className="blueprint-section-title"> Financial Planning</h3>
+            <h3 className="blueprint-section-title">Financial Planning</h3>
             <p className="blueprint-text">{roadmap.financial_planning}</p>
           </div>
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> Backup Plan</h3>
+          <h3 className="blueprint-section-title">Backup Plan</h3>
           <p className="blueprint-text">{roadmap.backup_plan}</p>
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> Interview Prep Tips</h3>
+          <h3 className="blueprint-section-title">Interview Prep Tips</h3>
           <ul className="blueprint-list-clean">
             {(roadmap.interview_prep || []).map((i, idx) => (
               <li key={idx} className="blueprint-list-item-info">{i}</li>
@@ -491,7 +512,7 @@ export default function Blueprint() {
         </div>
 
         <div className="blueprint-section">
-          <h3 className="blueprint-section-title"> Daily Habits</h3>
+          <h3 className="blueprint-section-title">Daily Habits</h3>
           <ul className="blueprint-list-clean">
             {(roadmap.daily_habits || []).map((h, i) => (
               <li key={i} className="blueprint-list-item-success">{h}</li>
@@ -581,17 +602,17 @@ export default function Blueprint() {
 
         <div className="blueprint-footer-actions">
           <button className="btn-ghost" onClick={() => setShowExtra(!showExtra)}>
-            ✏️ Add More About Myself
+            Add More Context
           </button>
           <button
             className="btn-primary"
             onClick={() => generateRoadmap()}
             disabled={generating}
           >
-            {generating ? 'RE-GENERATING...' : '🔄 Regenerate Blueprint'}
+            {generating ? 'RE-GENERATING...' : 'Regenerate Blueprint'}
           </button>
           <button className="btn-ghost" onClick={() => navigate('/discover')}>
-            🔁 Retake Discovery
+            Retake Discovery
           </button>
         </div>
 
