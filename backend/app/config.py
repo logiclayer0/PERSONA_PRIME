@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
     DATABASE_URL: str = "sqlite:///./persona_prime.db"
-    FRONTEND_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
+    FRONTEND_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173,https://persona-prime.vercel.app"
 
     class Config:
         env_file = ".env"
