@@ -22,7 +22,9 @@ export default function HomeDashboard() {
   return (
     <AppLayout>
       <div className="dashboard-container">
-        <section className="home-command">
+        <section className="home-hero">
+          <div className="home-hero-top"><span className="home-status"><i></i> PERSONAL DEVELOPMENT SYSTEM</span><span className="home-index">01 — 04</span></div>
+          <div className="home-command">
           <div className="home-command-copy">
             <p className="dashboard-eyebrow">PERSONA PRIME / PERSONAL DEVELOPMENT</p>
             <h1 className="dashboard-greeting">Build a clearer version of yourself.</h1>
@@ -37,6 +39,8 @@ export default function HomeDashboard() {
             <div className="home-orbit-core"><span>PP</span><small>PERSONA<br/>PRIME</small></div>
             <div className="home-orbit-label label-top">SELF</div><div className="home-orbit-label label-right">SKILLS</div><div className="home-orbit-label label-bottom">DIRECTION</div>
           </div>
+          </div>
+          <div className="home-hero-bottom"><span>SELF-DISCOVERY</span><span className="home-hero-line"></span><span>CAREER DIRECTION</span><span className="home-hero-line"></span><span>REAL-WORLD PRACTICE</span></div>
         </section>
 
         <section className="home-metrics">
