@@ -1,8 +1,8 @@
 fastapi
 uvicorn[standard]
-mediapipe
+mediapipe==0.10.21
 opencv-python-headless
-numpy
+numpy<2
 pydantic
 pydantic-settings
 python-multipart
