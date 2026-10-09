@@ -19,7 +19,6 @@ class PoseAnalyzer:
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5
         )
-        )
         self.events = []
         self.slot_start = time.time()
         self.slot_data = {
