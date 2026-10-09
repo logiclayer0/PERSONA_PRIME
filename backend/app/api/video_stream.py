@@ -8,16 +8,29 @@ import base64
 import traceback
 
 router = APIRouter()
-pose_analyzer = PoseAnalyzer()
-gesture_analyzer = GestureAnalyzer()
+# Defer optional computer-vision setup so an incompatible MediaPipe install
+# cannot stop the main API (including authentication) from importing.
+pose_analyzer = None
+gesture_analyzer = None
 session_manager = session_manager_instance
 
 
 @router.websocket("/video/analyze")
 async def video_analyze_stream(websocket: WebSocket):
+    global pose_analyzer, gesture_analyzer
     await websocket.accept()
     session_uuid = None
     print("[WS] Video analyze client connected")
+    try:
+        if pose_analyzer is None:
+            pose_analyzer = PoseAnalyzer()
+        if gesture_analyzer is None:
+            gesture_analyzer = GestureAnalyzer()
+    except Exception as exc:
+        print(f"[WS] Video analysis unavailable: {exc}")
+        await websocket.send_json({"error": "Video analysis is temporarily unavailable. Please try again later."})
+        await websocket.close(code=1011)
+        return
     try:
         while True:
             data = await websocket.receive_text()
