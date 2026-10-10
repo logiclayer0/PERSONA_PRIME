@@ -5,7 +5,8 @@ import shutil
 import os
 
 router = APIRouter(prefix="/audio", tags=["Audio"])
-analyzer = AudioAnalyzer()
+# Load Whisper only when speech analysis is first requested, not during API startup.
+analyzer = None
 session_manager = session_manager_instance
 
 
@@ -23,6 +24,15 @@ async def analyze_speech_audio(
 
     with open(path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
+
+    global analyzer
+    if analyzer is None:
+        try:
+            analyzer = AudioAnalyzer()
+        except Exception as exc:
+            if os.path.exists(path):
+                os.remove(path)
+            raise HTTPException(status_code=503, detail="Speech analysis is temporarily unavailable") from exc
 
     result = analyzer.transcribe_and_analyze(path)
 
