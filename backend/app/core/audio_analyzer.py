@@ -1,4 +1,3 @@
-import whisper
 import re
 import os
 from pydub import AudioSegment
@@ -6,7 +5,9 @@ from pydub import AudioSegment
 
 class AudioAnalyzer:
     def __init__(self):
-        self.model = whisper.load_model("base")
+        # PyTorch/Whisper are large; import them only when audio analysis is requested.
+        import whisper
+        self.model = whisper.load_model("base", device="cpu")
         self.filler_words = ["umm", "uhh", "uh", "um", "like", "ah", "you know", "basically"]
 
     def transcribe_and_analyze(self, path: str):
