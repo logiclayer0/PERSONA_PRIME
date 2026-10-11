@@ -8,8 +8,6 @@ import base64
 import traceback
 
 router = APIRouter()
-# Defer optional computer-vision setup so an incompatible MediaPipe install
-# cannot stop the main API (including authentication) from importing.
 pose_analyzer = None
 gesture_analyzer = None
 session_manager = session_manager_instance
