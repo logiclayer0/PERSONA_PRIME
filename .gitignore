@@ -6,6 +6,8 @@ __pycache__/
 venv/
 env/
 .env
+.env.*
+!.env.example
 *.egg-info/
 dist/
 build/
@@ -14,5 +16,11 @@ node_modules/
 temp_audio/*
 !temp_audio/.gitkeep
 *.log
+*.db
+*.sqlite
+*.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
 .idea/
 .vscode/
