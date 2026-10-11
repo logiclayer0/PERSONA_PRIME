@@ -5,7 +5,6 @@ import shutil
 import os
 
 router = APIRouter(prefix="/audio", tags=["Audio"])
-# Load Whisper only when speech analysis is first requested, not during API startup.
 analyzer = None
 session_manager = session_manager_instance
 
