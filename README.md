@@ -22,7 +22,7 @@
 
 ## Overview
 
-PERSONA_PRIME is a modern AI-driven platform for designing, managing, and deploying digital personas that can act as assistants, brand representatives, or interactive agents. The platform combines clean user experience, flexible configuration, and scalable architecture to help creators shape digital identities with greater control and clarity.
+PERSONA_PRIME is a modern AI-driven platform for designing, managing, and deploying digital personas that can act as assistants, brand representatives, or interactive agents. The platform combines dynamic user experiences with flexible backend logic, allowing teams to build polished virtual identities for a wide range of use cases.
 
 This repository provides the foundation for building polished persona experiences with a responsive interface, dynamic backend logic, and intelligent workflows that can evolve with your project goals.
 
@@ -69,6 +69,9 @@ PERSONA_PRIME/
 ├── README.md
 ├── LICENSE
 ├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── CHANGELOG.md
 └── .gitignore
 ```
 
@@ -129,6 +132,14 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 - code quality expectations
 - review workflow
 
+We also ask all contributors to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Community & Security
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Security Policy](SECURITY.md)
+- [Reporting a vulnerability privately](SECURITY.md)
+
 ## Roadmap
 
 - Expand persona customization features
@@ -156,3 +167,4 @@ Thanks to the open-source community, contributors, and ecosystem tools that make
 <p align="center">
   <strong>Built with care for modern AI-powered experiences.</strong>
 </p>
+
