@@ -50,7 +50,7 @@ class AudioAnalyzer:
         fillers = {}
         total = 0
         for w in self.filler_words:
-            count = len(re.findall(r"\\b" + re.escape(w) + r"\\b", clean))
+            count = len(re.findall(r"\b" + re.escape(w) + r"\b", clean))
             if count:
                 fillers[w] = count
                 total += count
