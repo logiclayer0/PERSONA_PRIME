@@ -14,7 +14,6 @@ export default function Navbar() {
         <div className="navbar-inner">
           <Link to="/" className="navbar-brand">
             <span className="brand-text">PERSONA_PRIME</span>
-            <span className="brand-badge">Beta</span>
           </Link>
 
           <div className="navbar-actions">
