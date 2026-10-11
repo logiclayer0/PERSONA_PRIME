@@ -5,7 +5,6 @@ from pydub import AudioSegment
 
 class AudioAnalyzer:
     def __init__(self):
-        # PyTorch/Whisper are large; import them only when audio analysis is requested.
         import whisper
         self.model = whisper.load_model("base", device="cpu")
         self.filler_words = ["umm", "uhh", "uh", "um", "like", "ah", "you know", "basically"]
@@ -51,7 +50,7 @@ class AudioAnalyzer:
         fillers = {}
         total = 0
         for w in self.filler_words:
-            count = len(re.findall(r"\b" + re.escape(w) + r"\b", clean))
+            count = len(re.findall(r"\\b" + re.escape(w) + r"\\b", clean))
             if count:
                 fillers[w] = count
                 total += count
