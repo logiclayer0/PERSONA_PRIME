@@ -34,6 +34,7 @@ Persona Prime brings self-discovery, personalized development planning, communic
 - [How Persona Prime Helps](#how-persona-prime-helps)
 - [Core Features](#core-features)
 - [User Journey](#user-journey)
+- [Product Visuals and Concept Models](#product-visuals-and-concept-models)
 - [System Architecture](#system-architecture)
 - [Technology Stack](#technology-stack)
 - [Repository Structure](#repository-structure)
@@ -181,6 +182,112 @@ sequenceDiagram
     B->>D: Save session results
     B-->>F: Return report and next steps
 ```
+
+---
+
+## Product Visuals and Concept Models
+
+A README can do more than list features: small, focused visuals help reviewers understand how the product thinks about progress, sessions, and data relationships. The diagrams below are **illustrative documentation examples**, not live analytics or a claim that every model is implemented exactly as shown.
+
+### Illustrative practice-outcome distribution
+
+A Mermaid pie chart can communicate how a future progress dashboard might summarize session outcomes. The values below are placeholders only; replace them with measured product data before presenting them as real results.
+
+```mermaid
+pie showData
+    title Illustrative communication-practice outcomes
+    "Improved" : 45
+    "Stable" : 30
+    "Needs more practice" : 25
+```
+
+**Why it is useful:** outcome distributions can make progress reports easier to scan than a paragraph of numbers. In the application, use real session data and clearly define how each category is calculated.
+
+### A development roadmap at a glance
+
+A Gantt chart is a compact way to communicate milestones and dependencies. This example demonstrates the format only; its dates and tasks are not a statement of the project's actual schedule or completion status.
+
+```mermaid
+gantt
+    title Example product-development roadmap
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+    section Discovery
+    Refine discovery journey       :a1, 2026-10-01, 10d
+    Review generated blueprint    :a2, after a1, 7d
+    section Practice
+    Validate studio workflow      :b1, 2026-10-18, 10d
+    Review analysis feedback      :b2, after b1, 7d
+    section Quality
+    Regression and accessibility  :c1, 2026-11-04, 7d
+```
+
+### Conceptual data relationships
+
+Class diagrams are useful for discussing domain boundaries before or alongside detailed database schemas. This is a simplified conceptual model—not a substitute for the repository's actual SQLAlchemy models.
+
+```mermaid
+classDiagram
+    class User {
+        profile
+        preferences
+    }
+    class DiscoveryProfile {
+        responses
+        strengths
+        growthAreas
+    }
+    class Blueprint {
+        goals
+        actionSteps
+    }
+    class PracticeSession {
+        sessionType
+        analysisSummary
+    }
+    class Report {
+        feedback
+        nextSteps
+    }
+    User "1" --> "0..1" DiscoveryProfile : builds
+    DiscoveryProfile --> Blueprint : informs
+    User "1" --> "0..*" PracticeSession : completes
+    PracticeSession --> Report : may produce
+```
+
+### Practice-session lifecycle
+
+A state diagram makes it easier to discuss how a practice session may move through the workflow and where error handling or retry paths could belong. Adapt the states to match the implemented application behavior as it evolves.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Ready
+    Ready --> InProgress : Start practice
+    InProgress --> Analyzing : Submit session
+    Analyzing --> Reviewed : Results available
+    Analyzing --> NeedsRetry : Processing failed
+    NeedsRetry --> Analyzing : Retry
+    Reviewed --> Exported : Export report
+    Reviewed --> Ready : Start another session
+    Exported --> [*]
+```
+
+### A conceptual progress model
+
+A weighted model can help explain the idea of combining several growth signals. The expression below is **conceptual only**; it is not presented as Persona Prime's implemented scoring formula, and the coefficients should not be interpreted as validated psychological measures.
+
+[
+P = w_r R + w_c C + w_p P_r
+]
+
+Where (R) represents reflection, (C) represents communication-practice signals, (P_r) represents practice consistency, and the (w) terms represent configurable weights. Any production score should document its inputs, limitations, and validation clearly.
+
+### Rendering and accessibility
+
+- GitHub can render Mermaid diagrams directly in Markdown.
+- Keep diagrams focused; split large flows into separate views rather than crowding a single chart.
+- Add a short explanation before or after each visual so it remains understandable to readers using assistive technology or a Markdown viewer that does not render Mermaid.
+- Use real, traceable data for published metrics. Label sample values and conceptual models explicitly.
 
 ---
 
