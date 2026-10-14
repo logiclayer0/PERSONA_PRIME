@@ -2,7 +2,7 @@
 
 **AI-assisted personal development and communication coaching.**
 
-Persona Prime helps users explore their strengths, reflect on their personality and goals, build a personalized development blueprint, and practise communication through speech and video feedback. It brings self-discovery, guided improvement, and progress tracking into one web application.
+Persona Prime helps users explore their strengths, reflect on their personality and goals, build a personalized development blueprint, and practise communication through speech and video feedback. [...]
 
 <p align="center">
   <a href="https://persona-prime.vercel.app"><strong>Live Application</strong></a>
@@ -31,11 +31,11 @@ Replace the placeholder above with the public or unlisted YouTube URL after uplo
 
 ## The Problem
 
-Students and early-career learners often need more than a list of goals: they need help understanding themselves, choosing meaningful development areas, practising communication, and turning feedback into consistent action. These activities are commonly spread across separate tools.
+Students and early-career learners often need more than a list of goals: they need help understanding themselves, choosing meaningful development areas, practising communication, and turning feedb[...]
 
 ## The Solution
 
-Persona Prime combines self-discovery, personalized guidance, communication practice, and progress tracking in one experience. It is designed to help users turn reflection into a practical plan and use structured feedback to improve over time.
+Persona Prime combines self-discovery, personalized guidance, communication practice, and progress tracking in one experience. It is designed to help users turn reflection into a practical plan an[...]
 
 ## Features
 
@@ -116,6 +116,29 @@ Persona Prime
 ├── docker-compose.yml
 └── README.md
 ```
+
+### Sequence flow (simplified)
+
+Below is a short, linear sequence flow that mirrors the separation-of-concerns style in the referenced architecture diagram. It highlights where the system pauses, which components stream data, and how analysis results flow back to the user.
+
+1. User (browser) — interacts with the React frontend UI (landing, discovery, studio, etc.).
+2. Frontend — makes REST API calls for profile/discovery/roadmap and opens a WebSocket for real-time video frame streaming to the backend's `/video/analyze` endpoint.
+3. Backend — receives requests and WebSocket frames, routes video/audio to analysis pipelines (MediaPipe/OpenCV, Whisper), performs inference, and stores intermediate results.
+4. AI & external services — Groq (roadmap generation), Whisper (speech->text), and any other external models are called by the backend services as needed.
+5. Persistence & events — processed signals, session summaries, and roadmap drafts are saved to the database and published to the frontend via API responses or WebSocket messages.
+6. Frontend — receives analysis/roadmap results, renders feedback and reports, and allows PDF export or further user interaction.
+
+```text
+User (browser)  ---> Frontend (React)  ---> Backend (FastAPI)  ---> AI / Analysis services
+    (UI)               (REST / WS)            (WS + pipelines)        (Whisper, Groq, MediaPipe)
+         <--- results, events, roadmap, feedback -------------------------------
+```
+
+Notes and extension ideas:
+
+- The unnumbered "pause" in the flow (where the frontend waits for the backend to process a streamed session) is the point to optimise for UX: show live progress, partial results, and retry options.
+- For documentation and diagrams, consider adding a Mermaid sequence diagram or PNG/SVG image in `/docs/` and linking it from the README for a visual version like the one you shared.
+- If you'd like the README to include an exact replica of an external diagram, provide the image file (or a link) and I can add it and reference it in the README.
 
 ### Request and analysis flow
 
@@ -199,7 +222,7 @@ npm run dev
 
 Vite will print the local development URL, normally http://localhost:5173.
 
-**Backend URL configuration:** make sure the frontend's API service points to the backend URL you are running. In production, configure it to use the deployed API URL rather than a localhost address. Never expose server-side secrets in frontend environment variables.
+**Backend URL configuration:** make sure the frontend's API service points to the backend URL you are running. In production, configure it to use the deployed API URL rather than a localhost addr[...]
 
 ### 4. Optional: Docker Compose
 
@@ -233,7 +256,7 @@ For exact request schemas and available operations, use the running service's Sw
 
 ## Current Limitations
 
-- Speech analysis loads the Whisper model on first use. Model initialization and inference can require substantial memory and processing time; small hosting instances may not support this reliably.
+- Speech analysis loads the Whisper model on first use. Model initialization and inference can require substantial memory and processing time; small hosting instances may not support this reliabl[...]
 - Video analysis depends on a compatible MediaPipe installation and available CPU/memory resources.
 - AI roadmap generation requires a valid Groq API key and network access to the provider.
 - Analysis quality may vary with lighting, camera position, background noise, microphone quality, accent, and recording length.
