@@ -1,338 +1,265 @@
 # Persona Prime
 
-[![Release](https://img.shields.io/github/v/release/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME/releases)
-[![Build](https://img.shields.io/github/actions/workflow/status/logiclayer0/PERSONA_PRIME/ci.yml?branch=main&label=build)](https://github.com/logiclayer0/PERSONA_PRIME/actions)
-[![Issues](https://img.shields.io/github/issues/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME/pulls)
-[![License](https://img.shields.io/github/license/logiclayer0/PERSONA_PRIME)](LICENSE)
-[![Top Language](https://img.shields.io/github/languages/top/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME)
+AI-assisted personal development and communication coaching for students and early-career professionals.
 
-AI-assisted personal development and communication coaching for students and early-career professionals — helping users uncover strengths, sharpen communication habits, and turn reflection into measurable progress.
+Persona Prime brings self-discovery, personalized development planning, communication practice, AI-assisted feedback, and progress tracking into one connected workflow.
 
 <p align="center">
-  <a href="https://persona-prime.vercel.app"><strong>Live App</strong></a>
-  ·
+  <a href="https://persona-prime.vercel.app"><strong>Open Live App</strong></a>
+  &nbsp;·&nbsp;
   <a href="https://github.com/logiclayer0/PERSONA_PRIME/issues">Report an Issue</a>
-  ·
+  &nbsp;·&nbsp;
   <a href="https://github.com/logiclayer0/PERSONA_PRIME/pulls">Contribute</a>
 </p>
 
-> [!NOTE]
-> Persona Prime blends self-discovery, AI guidance, communication practice, and progress tracking into a single workflow designed to support meaningful growth without replacing professional advice.
+<p align="center">
+  <a href="https://github.com/logiclayer0/PERSONA_PRIME/releases"><img alt="Latest Release" src="https://img.shields.io/github/v/release/logiclayer0/PERSONA_PRIME"></a>
+  <a href="https://github.com/logiclayer0/PERSONA_PRIME/actions"><img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/logiclayer0/PERSONA_PRIME/ci.yml?branch=main&label=build"></a>
+  <a href="https://github.com/logiclayer0/PERSONA_PRIME/issues"><img alt="Open Issues" src="https://img.shields.io/github/issues/logiclayer0/PERSONA_PRIME"></a>
+  <a href="https://github.com/logiclayer0/PERSONA_PRIME/pulls"><img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/logiclayer0/PERSONA_PRIME"></a>
+  <a href="https://github.com/logiclayer0/PERSONA_PRIME/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/logiclayer0/PERSONA_PRIME"></a>
+  <a href="https://github.com/logiclayer0/PERSONA_PRIME"><img alt="Top Language" src="https://img.shields.io/github/languages/top/logiclayer0/PERSONA_PRIME"></a>
+</p>
 
-> [!WARNING]
-> AI-generated insights are supportive guidance, not clinical assessment. Users should interpret them as coaching signals rather than definitive psychological diagnoses.
+> **Demo video:** [YouTube demo link — add when published](https://www.youtube.com/)
+
+> **Important:** Persona Prime provides AI-assisted coaching and self-reflection. Its generated insights are not clinical assessments or definitive psychological diagnoses and should not replace professional advice.
 
 ---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The Problem](#the-problem)
+- [How Persona Prime Helps](#how-persona-prime-helps)
+- [Core Features](#core-features)
+- [User Journey](#user-journey)
+- [System Architecture](#system-architecture)
+- [Technology Stack](#technology-stack)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+- [API Overview](#api-overview)
+- [Security and Configuration](#security-and-configuration)
+- [Development Priorities](#development-priorities)
+- [Contributing](#contributing)
+- [Limitations](#limitations)
+- [License](#license)
+- [Project Links](#project-links)
 
 ## Overview
 
-Persona Prime helps learners and early-career professionals:
+Many students and early-career professionals receive generic advice but lack a structured way to understand their strengths, practice communication, and measure improvement. Persona Prime is designed to connect these activities in one place.
 
-- understand their strengths, preferences, and development areas
-- build a personalized roadmap based on reflection and self-assessment
-- practice communication with guided video and audio analysis
-- track progress and export reports for tangible next steps
+The platform follows a continuous growth cycle:
 
-The platform combines reflection, AI-assisted analysis, coaching prompts, and structured feedback into one experience.
+**Discover → Plan → Practice → Review → Improve**
 
----
+It combines reflection, personalized roadmaps, guided communication practice, media analysis, feedback, and progress reports to help users turn self-awareness into practical next steps.
 
-## Problem
+## The Problem
 
-Many learners do not need more generic advice — they need structured self-understanding, targeted feedback, and repeated practice. Without intentional reflection and guided coaching, growth efforts stagnate.
+Personal development can be difficult to sustain when goals are vague, feedback is inconsistent, and improvement is hard to measure. Communication skills also require repeated practice—not just reading advice.
 
----
+## How Persona Prime Helps
 
-## Solution
+Persona Prime provides a structured workflow to help users:
 
-Persona Prime turns self-awareness into a practical system:
-
-- discovery-based profile generation
-- personalized development roadmap
-- guided communication practice
-- session analysis with actionable feedback
-- exportable progress reports
-
----
-
-## Feature Architecture
-
-```mermaid
-flowchart LR
-  subgraph Client
-    A[Browser / React Frontend]
-  end
-
-  subgraph App
-    B[FastAPI Backend]
-    C[Auth & Profiles]
-    D[Discovery & Roadmap Engine]
-    E[Audio & Video Analysis]
-    F[AI Services & Reports]
-    G[(Database)]
-  end
-
-  A -->|REST + WebSocket| B
-  B --> C
-  B --> D
-  B --> E
-  B --> F
-  E --> G
-  F --> G
-  G --> B
-  B -->|Insights & Reports| A
-```
-
-This architecture separates the product experience into a polished React frontend and a Python/FastAPI backend responsible for data flow, analysis, and AI-generated recommendations.
-
----
-
-## Diagrams & Charts
-
-To present system design, progress metrics, and timelines professionally in the README and documentation, Persona Prime uses a combination of lightweight diagram types that render well on GitHub and in developer tooling.
-
-Below are recommended diagram formats, concise examples (Mermaid), and practical notes for producing high-quality visuals for docs and reports.
-
-### Flowcharts
-- Purpose: Visualize component interactions, request/response flow, and high-level user paths.
-- Recommended: Mermaid `flowchart` for simple architecture diagrams; export to PNG/SVG for inclusion in other docs when needed.
-
-```mermaid
-flowchart TD
-  U[User] --> F[Frontend]
-  F --> B[Backend API]
-  B --> A[AI Services]
-  B --> DB[(Database)]
-  A -->|Insights| B
-  B -->|Updates| F
-```
-
-Notes:
-- Keep nodes and labels short; annotate edges where necessary.
-- For complex flows break diagrams into focused slices (authentication flow, session flow, report generation) to stay readable.
-
-### Pie charts (Metrics)
-- Purpose: Show distribution (e.g., session types, confidence buckets, category breakdowns).
-- Recommended: Use Mermaid `pie` for quick inline visuals. For interactive or production-quality charts (tooltips, legends) use Chart.js or D3 in the frontend.
-
-Mermaid example:
-
-```mermaid
-pie title Session outcomes
-  "Improved" : 45
-  "Stable" : 30
-  "Needs work" : 25
-```
-
-Chart.js (frontend) example snippet:
-
-```js
-import { Pie } from 'react-chartjs-2'
-
-const data = {
-  labels: ['Improved','Stable','Needs work'],
-  datasets: [{ data: [45,30,25], backgroundColor: ['#4caf50','#ffca28','#f44336'] }]
-}
-
-<Pie data={data} />
-```
-
-### Gantt charts (Roadmaps & Timelines)
-- Purpose: Visualize user roadmaps, milestones, and multi-step plans over time.
-- Recommended: Mermaid `gantt` for README timelines; for richer features consider Grafana/Plotly or exporting from a PM tool.
-
-```mermaid
-gantt
-title Persona Roadmap
-dateFormat  YYYY-MM-DD
-section Discovery
-Research       :done, 2026-01-01, 2026-01-10
-Survey         :active, 2026-01-11, 7d
-section Practice
-Studio MVP     :2026-02-01, 2026-02-14
-Feedback Loop  :2026-02-15, 14d
-```
-
-Notes:
-- Use concise task names and align dates to meaningful milestones.
-- For multi-user planning export Gantt to shared tooling (Asana, Trello Power-Ups, or CSV imports) for richer collaboration.
-
-### Class diagrams (Design & Models)
-- Purpose: Communicate domain models and key relationships (e.g., User, Session, Report, Blueprint).
-- Recommended: Mermaid `classDiagram` for compact model summaries.
-
-```mermaid
-classDiagram
-  class User {
-    +int id
-    +string name
-    +string email
-    +getProfile()
-  }
-  class Session {
-    +int id
-    +datetime started_at
-    +float confidence_score
-  }
-  User "1" -- "*" Session : owns
-  Session --> Report : generates
-```
-
-Notes:
-- Keep attributes and methods minimal in README diagrams; link to full schema files in the repo for details.
-
-### State diagrams
-- Purpose: Describe lifecycle of entities (e.g., session state transitions: draft → active → reviewed → exported).
-- Recommended: Mermaid `stateDiagram` for readable lifecycle diagrams.
-
-```mermaid
-stateDiagram-v2
-  [*] --> Draft
-  Draft --> Active : start()
-  Active --> Reviewing : complete()
-  Reviewing --> Exported : approve()
-  Reviewing --> Active : reopen()
-```
-
-Notes:
-- Use explicit transition labels for actions/guards.
-- Model error/retry paths where media processing or model inference may fail.
-
-### Exporting, Rendering, and Accessibility
-- GitHub renders Mermaid blocks in Markdown; if you need images for other audiences, export diagrams to SVG or PNG using tools like mermaid-cli, Kroki, or the Mermaid Live Editor.
-- For charts embedded in the app, prefer frontend libraries (Chart.js, D3, Plotly) for interactivity and accessibility (keyboard/ARIA support).
-- Keep alt text or adjacent captions for exported images to improve accessibility.
-
----
-
-## User Journey Flow
-
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant F as Frontend
-    participant B as Backend
-    participant A as Analysis / AI Services
-    participant D as Database
-
-    U->>F: Sign in and complete discovery survey
-    F->>B: Submit responses and profile data
-    B->>A: Generate personal profile and roadmap
-    A-->>B: Insights, strengths, and area for growth
-    B->>D: Save profile and blueprint
-    D-->>F: Return personalized roadmap
-
-    U->>F: Enter communication practice studio
-    F->>B: Start session and open media streams
-    loop During practice
-      F->>B: Send audio/video frames
-      B->>A: Analyze posture, speech, cues, and delivery
-      A-->>B: Partial observations and signals
-      B-->>F: Live progress and interim feedback
-    end
-    B->>A: Finalize report
-    A-->>B: Feedback summary
-    B->>D: Save session results
-    B->>>F: Final report and PDF export
-    F->>>U: Display guidance and roadmap updates
-```
-
----
+- explore personal strengths, preferences, habits, and development areas
+- build a personalized development blueprint and roadmap
+- rehearse communication scenarios with scripts and guided practice
+- review speech and visual delivery signals through audio/video analysis
+- receive AI-assisted feedback and actionable recommendations
+- track practice sessions and export reports for future reference
 
 ## Core Features
 
 ### 1. Discover Yourself
-- guided reflections on preferences, habits, strengths, and development goals
-- resume-friendly profile generation
-- personalized roadmaps based on user input
+
+A guided self-discovery experience designed to help users reflect on their preferences, habits, strengths, and goals.
+
+- guided discovery questions and self-reflection
+- profile generation based on user responses
+- resume-friendly profile information
+- personalized development suggestions and roadmaps
 
 ### 2. Personal Development Blueprint
+
+Turns discovery responses into a structured plan for growth.
+
 - AI-assisted roadmap generation
-- summary of strengths, confidence areas, and growth opportunities
-- saved blueprint export in PDF format
+- summaries of strengths, confidence areas, and growth opportunities
+- actionable next steps based on user input
+- blueprint export in PDF format
 
 ### 3. Communication Practice Studio
-- guided role and category-based preparation
+
+A guided environment for preparing and practicing communication.
+
+- role- and category-based preparation
 - script selection and rehearsal setup
-- speech and video analysis for delivery quality
+- teleprompter-style support for practice
+- speech and video analysis to review delivery quality
+- support for practice sessions with an interactive coaching-oriented experience
 
-### 4. Feedback and Reports
-- combination of speaking and visual cues into a structured assessment
-- practical feedback loops for communication improvement
-- recommendations based on actual session outcomes
+### 4. Audio, Video, and Delivery Analysis
 
-### 5. Progress and Settings
-- session tracking and progress monitoring
-- profile, preference, and theme management
+The analysis workflow combines multiple signals to provide more structured feedback on communication practice.
+
+- speech/audio analysis, including Whisper-based transcription support
+- visual analysis using MediaPipe, OpenCV, and NumPy
+- posture, pose, gesture, and eye-contact-related cues where supported by the analysis pipeline
+- grammar and speech-delivery feedback
+- multimodal signal combination and scoring
+- live/interim observations and session-level feedback, depending on the active workflow
+
+Analysis results are intended as coaching signals. They may be affected by recording quality, lighting, camera placement, background noise, and model limitations.
+
+### 5. Feedback and Reports
+
+Helps users turn practice results into clear follow-up actions.
+
+- structured feedback combining speaking and visual cues
+- practical suggestions for communication improvement
+- recommendations informed by session outcomes
+- session summaries and PDF report export
+
+### 6. Progress and Settings
+
+Supports ongoing practice and a personalized experience.
+
+- session history and progress monitoring
+- profile and preference management
+- theme settings
 - authentication-protected access
 
-### 6. Persona Experience
-- interactive coaching-oriented interface design
-- immersive user experience focused on confidence and growth
+### 7. Persona Experience
+
+The interface is designed around confidence, self-understanding, and growth.
+
+- interactive coaching-oriented UI
+- avatar and 3D experience support
+- guided user flows connecting discovery, planning, and practice
 
 ---
+
+## User Journey
+
+The intended workflow connects self-discovery to repeatable practice and review.
+
+```mermaid
+flowchart LR
+    A[Discover Yourself] --> B[Personalized Blueprint]
+    B --> C[Practice Studio]
+    C --> D[Audio and Video Analysis]
+    D --> E[Feedback and Reports]
+    E --> F[Progress Tracking]
+    F --> C
+    F --> B
+```
+
+### Session flow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as React Frontend
+    participant B as FastAPI Backend
+    participant A as Analysis and AI Services
+    participant D as Database
+
+    U->>F: Sign in and complete discovery
+    F->>B: Submit responses and profile data
+    B->>A: Generate profile insights and roadmap
+    A-->>B: Return recommendations
+    B->>D: Save profile and blueprint
+    B-->>F: Return personalized results
+
+    U->>F: Start a communication practice session
+    F->>B: Submit session data or media stream
+    B->>A: Analyze available speech and visual signals
+    A-->>B: Return observations and feedback
+    B->>D: Save session results
+    B-->>F: Return report and next steps
+```
+
+---
+
+## System Architecture
+
+Persona Prime uses a React-based frontend and a Python/FastAPI backend. The backend coordinates authentication, discovery, analysis, persistence, and AI-assisted recommendations.
+
+```mermaid
+flowchart TB
+    U[User] --> FE[React + Vite Frontend]
+    FE --> API[FastAPI Backend]
+    API --> AUTH[Authentication and Profiles]
+    API --> DISC[Discovery and Roadmap Services]
+    API --> MEDIA[Audio and Video Analysis]
+    API --> AI[AI Services and Reports]
+    AUTH --> DB[(Database)]
+    DISC --> DB
+    MEDIA --> DB
+    AI --> DB
+    API --> FE
+```
+
+The repository is organized into frontend and backend applications, with separate areas for pages, shared components, API routes, models, schemas, and services.
 
 ## Technology Stack
 
 | Area | Technologies |
 |---|---|
 | Frontend | React 18, Vite, React Router |
-| UI & Interaction | CSS, Framer Motion |
-| State & Requests | Zustand, Axios |
-| 3D / Avatar Support | Three.js, React Three Fiber, Drei |
+| UI and Animation | CSS, Framer Motion |
+| State Management and Requests | Zustand, Axios |
+| 3D and Avatar Support | Three.js, React Three Fiber, Drei |
 | Backend API | Python, FastAPI, Uvicorn |
 | Data Validation | Pydantic, pydantic-settings |
 | Persistence | SQLAlchemy, SQLite by default |
 | Authentication | JWT via python-jose, Passlib/Bcrypt |
-| Video / Vision | MediaPipe, OpenCV, NumPy |
+| Video and Vision | MediaPipe, OpenCV, NumPy |
 | Speech Analysis | OpenAI Whisper, PyDub, FFmpeg |
 | AI Roadmap Generation | Groq API |
 | PDF Export | ReportLab |
 | Deployment | Vercel frontend; Render-compatible backend |
 
----
-
-## Architecture Overview
+## Repository Structure
 
 ```text
-Persona Prime
-├── frontend/                 React + Vite frontend
+PERSONA_PRIME/
+├── frontend/
 │   └── src/
-│       ├── pages/            landing, auth, dashboard, discovery,
-│       │                     blueprint, studio, reports, progress, settings
-│       ├── components/       shared UI and avatar components
-│       ├── services/         API layer
-│       ├── context/          providers and theme state
-│       └── store/            client-side state
-│
-├── backend/                  FastAPI service
+│       ├── pages/       # Landing, auth, dashboard, discovery, blueprint,
+│       │                # studio, reports, progress, and settings
+│       ├── components/  # Shared UI and avatar components
+│       ├── services/    # API layer
+│       ├── context/     # Providers and theme state
+│       └── store/       # Client-side state
+├── backend/
 │   └── app/
-│       ├── api/              auth, discovery, audio, video, analytics
-│       ├── core/              analysis utilities
-│       ├── models/            SQLAlchemy models
-│       ├── schemas/           request/response validation
-│       ├── data/              discovery content
-│       └── services/          roadmap and AI services
-│
+│       ├── api/          # Auth, discovery, audio, video, analytics
+│       ├── core/         # Analysis utilities
+│       ├── models/       # SQLAlchemy models
+│       ├── schemas/      # Request/response validation
+│       ├── data/         # Discovery content
+│       └── services/     # Roadmap and AI services
 ├── docker-compose.yml
 ├── LICENSE
 ├── README.md
-├── .gitignore
 └── package.json
 ```
 
----
+*This is a high-level map; individual files and modules may vary as the project evolves.*
 
 ## Getting Started
 
 ### Prerequisites
 
 - Git
-- Node.js 18+
-- Python 3.11+
+- Node.js 18 or later
+- Python 3.11
 - FFmpeg for audio processing
-- Groq API key for roadmap generation
+- A Groq API key for roadmap generation
 
 ### 1. Clone the repository
 
@@ -341,12 +268,11 @@ git clone https://github.com/logiclayer0/PERSONA_PRIME.git
 cd PERSONA_PRIME
 ```
 
-### 2. Configure the backend
+### 2. Set up the backend
 
-Create and activate a virtual environment:
+Create and activate a virtual environment from the repository root.
 
-<details>
-<summary>Windows (PowerShell)</summary>
+**Windows (PowerShell)**
 
 ```powershell
 py -3.11 -m venv .venv
@@ -354,10 +280,7 @@ py -3.11 -m venv .venv
 pip install -r backend/requirements.txt
 ```
 
-</details>
-
-<details>
-<summary>macOS / Linux</summary>
+**macOS / Linux**
 
 ```bash
 python3.11 -m venv .venv
@@ -365,9 +288,7 @@ source .venv/bin/activate
 pip install -r backend/requirements.txt
 ```
 
-</details>
-
-Create `backend/.env` with:
+Create a `backend/.env` file:
 
 ```dotenv
 GROQ_API_KEY=your_groq_api_key
@@ -378,21 +299,23 @@ DATABASE_URL=sqlite:///./persona_prime.db
 FRONTEND_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,https://persona-prime.vercel.app
 ```
 
-Then start the API:
+Use your own credentials and a securely generated secret. Do not commit the `.env` file.
+
+Start the API:
 
 ```bash
 cd backend
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-The API docs will be available at:
+When the backend is running, its interactive API documentation is available at:
 
-- Swagger UI: http://127.0.0.1:8000/docs
-- OpenAPI schema: http://127.0.0.1:8000/openapi.json
+- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- OpenAPI schema: [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json)
 
-### 3. Configure and run the frontend
+### 3. Set up the frontend
 
-From a second terminal:
+Open a second terminal from the repository root:
 
 ```bash
 cd frontend
@@ -400,9 +323,11 @@ npm install
 npm run dev
 ```
 
-The application is typically available at http://localhost:5173.
+The Vite development server is typically available at [http://localhost:5173](http://localhost:5173).
 
 ### 4. Run with Docker (optional)
+
+If Docker Compose is configured for your environment:
 
 ```bash
 docker compose up --build
@@ -412,128 +337,67 @@ docker compose up --build
 
 ## API Overview
 
-The FastAPI service organizes functionality into route areas:
+The backend groups related functionality into route areas. Exact paths and request schemas should be checked in the running API documentation.
 
-| Area | Purpose |
+| Route area | Purpose |
 |---|---|
-| `/auth` | registration, login, profile, preferences |
-| `/discovery` | discovery questions, roadmap generation, PDF export |
-| `/audio` | uploaded-audio analysis |
+| `/auth` | Registration, login, profile, and preferences |
+| `/discovery` | Discovery questions, roadmap generation, and PDF export |
+| `/audio` | Uploaded-audio analysis |
 | `/video/analyze` | WebSocket-based video analysis |
-| analytics & script routes | communication-practice support workflows |
+| Analytics and script routes | Communication-practice support workflows |
 
-For full schemas and examples, use the running Swagger UI at `/docs`.
-
----
+For current request/response schemas, run the backend and open `/docs`.
 
 ## Security and Configuration
 
-- keep `.env` and credentials out of version control
-- use a strong production secret for `SECRET_KEY`
-- restrict `FRONTEND_ORIGINS` to trusted domains
-- use HTTPS in deployment
-- treat AI-generated prompts and insights as supportive guidance, not final judgment
-
-> [!NOTE]
-> For production deployments, validate all environment variables before launching the service stack.
-
----
-
-## Algorithms & Math
-
-For algorithmic or cryptographic concepts, Persona Prime documentation can include formal mathematical expressions directly in the README.
-
-### Example: Communication confidence model
-
-A simple confidence score can be represented as:
-
-$$
-C = \alpha S + \beta P + \gamma R - \delta F
-$$
-
-where:
-
-- $C$ = confidence score
-- $S$ = strength signal
-- $P$ = practice consistency
-- $R$ = reflection quality
-- $F$ = friction or uncertainty penalty
-- $\alpha, \beta, \gamma, \delta$ = weighting factors
-
-This allows a lightweight model to represent how repeated practice and reflection can compound growth.
-
-### Example: Hash collision estimate
-
-For a hash function with output size $k$ bits, the collision probability after $t$ samples is approximately:
-
-$$
-P_{coll} \approx 1 - e^{-\frac{t(t-1)}{2\cdot 2^k}}
-$$
-
-This kind of equation is useful in systems where security, uniqueness, or verification quality matters.
-
----
-
-## CLI and Keyboard Shortcuts
-
-For developer workflows and local tool usage, keyboard controls can be shown clearly with `<kbd>` tags:
-
-- <kbd>Ctrl</kbd> + <kbd>C</kbd> to stop a running process
-- <kbd>Ctrl</kbd> + <kbd>L</kbd> to clear the terminal
-- <kbd>Tab</kbd> to move through interactive prompts or UI controls
-
----
-
-## Sample Logs
-
-<details>
-<summary>View sample server logs</summary>
-
-```log
-[INFO] 2026-10-14T10:00:00Z Server started on port 8000
-[INFO] 2026-10-14T10:01:02Z POST /v1/send 200 OK
-[WARNING] 2026-10-14T10:02:12Z Low audio clarity detected during session analysis
-[ERROR] 2026-10-14T10:03:40Z AI service timeout during roadmap generation
-```
-
-</details>
-
----
+- Keep `.env` files, API keys, and secrets out of version control.
+- Use a strong, unique production value for `SECRET_KEY`.
+- Restrict `FRONTEND_ORIGINS` to trusted application domains.
+- Use HTTPS for deployed environments.
+- Validate required environment variables before starting the service.
+- Treat AI-generated profiles and feedback as supportive guidance, not definitive judgments.
 
 ## Development Priorities
 
-- add automated tests for auth, discovery, and analysis endpoints
-- improve observability and resilience for AI/media-processing failures
-- simplify deployment configuration for production environments
-- continue UX and accessibility improvements
+Potential areas for continued improvement include:
 
----
+- adding automated tests for authentication, discovery, and analysis endpoints
+- improving observability and resilience around AI and media-processing failures
+- simplifying production deployment configuration
+- continuing UI, accessibility, and usability improvements
+
+These are development priorities, not a claim that the listed work is already complete.
 
 ## Contributing
 
-Contributions are welcome. Before submitting changes:
+Contributions and improvement suggestions are welcome.
 
-1. explain the issue or improvement clearly
-2. keep changes focused and avoid committing secrets or generated data
-3. test the affected frontend or backend workflow
-4. include reproduction steps for bugs
+1. Open an issue describing the bug, question, or proposed improvement.
+2. Keep changes focused and avoid committing secrets or generated data.
+3. Test the frontend or backend workflow affected by the change.
+4. Include clear reproduction steps when reporting a bug.
 
-Use the repository's Issues page to report bugs or propose enhancements.
+Use the [Issues](https://github.com/logiclayer0/PERSONA_PRIME/issues) page to report problems or discuss enhancements, and the [Pull Requests](https://github.com/logiclayer0/PERSONA_PRIME/pulls) page to review or submit changes.
 
----
+## Limitations
+
+- Audio/video analysis quality depends on recording conditions, supported inputs, and model behavior.
+- AI-generated feedback may be incomplete or inaccurate and should be reviewed with judgment.
+- The local setup and default SQLite configuration are intended as a starting point; production deployments require environment-specific configuration and testing.
+- Availability of individual analysis capabilities depends on the configured services and the active application workflow.
 
 ## License
 
-This project is distributed under the MIT License. See [LICENSE](LICENSE) for details.
+Persona Prime is distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
----
+## Project Links
 
-## Links
-
-- Live application: https://persona-prime.vercel.app
-- Source code: https://github.com/logiclayer0/PERSONA_PRIME
-- Issues: https://github.com/logiclayer0/PERSONA_PRIME/issues
-- Pull requests: https://github.com/logiclayer0/PERSONA_PRIME/pulls
+- **Live application:** https://persona-prime.vercel.app
+- **Source code:** https://github.com/logiclayer0/PERSONA_PRIME
+- **Issues:** https://github.com/logiclayer0/PERSONA_PRIME/issues
+- **Pull requests:** https://github.com/logiclayer0/PERSONA_PRIME/pulls
+- **Demo video:** Add the YouTube link here once the video is published.
 
 ---
 
