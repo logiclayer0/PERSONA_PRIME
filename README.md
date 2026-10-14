@@ -1,46 +1,58 @@
 # Persona Prime
 
-[![Frontend: React + Vite](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?logo=react&logoColor=20232A)](https://persona-prime.vercel.app)
-[![Backend: Python](https://img.shields.io/badge/Backend-Python-3776AB?logo=python&logoColor=white)]()
-[![API: FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME/releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/logiclayer0/PERSONA_PRIME/ci.yml?branch=main&label=build)](https://github.com/logiclayer0/PERSONA_PRIME/actions)
+[![Issues](https://img.shields.io/github/issues/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME/pulls)
+[![License](https://img.shields.io/github/license/logiclayer0/PERSONA_PRIME)](LICENSE)
+[![Top Language](https://img.shields.io/github/languages/top/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME)
 
-**AI-assisted personal development and communication coaching — helping users uncover strengths, refine communication skills, and turn reflection into an actionable growth plan.**
+AI-assisted personal development and communication coaching for students and early-career professionals — helping users uncover strengths, sharpen communication habits, and turn reflection into actionable growth plans.
 
 <p align="center">
-  <a href="https://persona-prime.vercel.app"><strong>Live Application</strong></a>
+  <a href="https://persona-prime.vercel.app"><strong>Live App</strong></a>
   ·
   <a href="https://github.com/logiclayer0/PERSONA_PRIME/issues">Report an Issue</a>
   ·
   <a href="https://github.com/logiclayer0/PERSONA_PRIME/pulls">Contribute</a>
 </p>
 
+> [!NOTE]
+> Persona Prime blends self-discovery, AI guidance, communication practice, and progress tracking into a single workflow designed to support meaningful growth without replacing professional advice.
+
+> [!WARNING]
+> AI-generated insights are supportive guidance, not clinical assessment. Users should interpret them as coaching signals rather than definitive psychological diagnoses.
+
 ---
 
 ## Overview
 
-Persona Prime is a personal development and communication coaching platform designed to help students and early-career professionals:
+Persona Prime helps learners and early-career professionals:
 
 - understand their strengths, preferences, and development areas
 - build a personalized roadmap based on reflection and self-assessment
-- practice speaking and presentation skills with guided video-based feedback
-- track progress and export actionable reports
+- practice communication with guided video and audio analysis
+- track progress and export reports for tangible next steps
 
-The platform blends self-discovery, AI-assisted guidance, communication practice, and progress tracking into one experience.
-
----
-
-## The Problem
-
-Many learners and early-career professionals do not need only a list of goals — they need structured self-understanding, targeted feedback, and guided practice. Without intentional reflection and coaching, growth often becomes vague, inconsistent, or disconnected from real communication habits.
+The platform combines reflection, AI-assisted analysis, coaching prompts, and structured feedback into one experience.
 
 ---
 
-## The Solution
+## Problem
 
-Persona Prime combines personal reflection, AI-generated guidance, communication rehearsal, and data-informed feedback in one workflow. It helps users convert self-awareness into a clear development path and supports regular practice with practical, measurable indicators.
+Many learners do not need more generic advice — they need structured self-understanding, targeted feedback, and repeated practice. Without intentional reflection and guided coaching, growth efforts often remain vague and inconsistent.
 
-> Generated insights are intended to support coaching and practice, not replace professional assessment or formal psychological evaluation.
+---
+
+## Solution
+
+Persona Prime turns self-awareness into a practical system:
+
+- discovery-based profile generation
+- personalized development roadmap
+- guided communication practice
+- session analysis with actionable feedback
+- exportable progress reports
 
 ---
 
@@ -55,10 +67,10 @@ flowchart LR
   subgraph App
     B[FastAPI Backend]
     C[Auth & Profiles]
-    D[Discovery / Roadmap Engine]
+    D[Discovery & Roadmap Engine]
     E[Audio & Video Analysis]
     F[AI Services & Reports]
-    G[Database]
+    G[(Database)]
   end
 
   A -->|REST + WebSocket| B
@@ -69,10 +81,10 @@ flowchart LR
   E --> G
   F --> G
   G --> B
-  B -->|Results & reports| A
+  B -->|Insights & Reports| A
 ```
 
-This architecture highlights the product's split between a modern React frontend and a Python/FastAPI backend that coordinates user journeys, analysis, and AI-assisted report generation.
+This architecture separates the product experience into a polished React frontend and a Python/FastAPI backend responsible for data flow, analysis, and AI-generated recommendations.
 
 ---
 
@@ -80,32 +92,32 @@ This architecture highlights the product's split between a modern React frontend
 
 ```mermaid
 sequenceDiagram
-  participant U as User
-  participant F as Frontend
-  participant B as Backend
-  participant A as Analysis / AI Services
-  participant D as Database
+    participant U as User
+    participant F as Frontend
+    participant B as Backend
+    participant A as Analysis / AI Services
+    participant D as Database
 
-  U->>F: Sign in and complete discovery survey
-  F->>B: Submit responses and profile data
-  B->>A: Generate personal profile and roadmap
-  A-->>B: Insights, strengths, development areas
-  B->>D: Save profile and blueprint
-  D-->>F: Return personalized roadmap
+    U->>F: Sign in and complete discovery survey
+    F->>B: Submit responses and profile data
+    B->>A: Generate personal profile and roadmap
+    A-->>B: Insights, strengths, and area for growth
+    B->>D: Save profile and blueprint
+    D-->>F: Return personalized roadmap
 
-  U->>F: Enter communication practice studio
-  F->>B: Start session and open video/audio streams
-  loop During practice
-    F->>B: Send video frames and audio
-    B->>A: Analyze posture, voice, gestures, and speech
-    A-->>B: Partial signals and observations
-    B-->>F: Live progress / interim feedback
-  end
-  B->>A: Finalize session summary and report
-  A-->>B: Feedback summary
-  B->>D: Save session results and report
-  B-->>F: Final report and PDF export
-  F-->>U: Display feedback, roadmap updates, and completed results
+    U->>F: Enter communication practice studio
+    F->>B: Start session and open media streams
+    loop During practice
+      F->>B: Send audio/video frames
+      B->>A: Analyze posture, speech, cues, and delivery
+      A-->>B: Partial observations and signals
+      B-->>F: Live progress and interim feedback
+    end
+    B->>A: Finalize report
+    A-->>B: Feedback summary
+    B->>D: Save session results
+    B-->>F: Final report and PDF export
+    F-->>U: Display guidance and roadmap updates
 ```
 
 ---
@@ -113,35 +125,33 @@ sequenceDiagram
 ## Core Features
 
 ### 1. Discover Yourself
-- Guided reflections on preferences, experiences, interests, and development goals
-- Save-and-resume flow for profile generation
-- Personalized profile built from user responses and development priorities
+- guided reflections on preferences, habits, strengths, and development goals
+- resume-friendly profile generation
+- personalized roadmaps based on user input
 
 ### 2. Personal Development Blueprint
-- AI-assisted roadmap generation based on discovery insights
-- Summary of strengths, confidence areas, development opportunities, and next steps
-- View saved blueprint and export a PDF version
-
-> Personality and confidence indicators are informational guidance derived from the current system logic and should not be treated as clinical or psychometric assessments.
+- AI-assisted roadmap generation
+- summary of strengths, confidence areas, and growth opportunities
+- saved blueprint export in PDF format
 
 ### 3. Communication Practice Studio
-- Guided role and category-based preparation workflow
-- Script selection and practice setup
-- Video analysis for posture, eye direction, face signals, and hand gestures
-- Speech analysis for transcription, speaking pace, and filler-word detection
+- guided role and category-based preparation
+- script selection and rehearsal setup
+- speech and video analysis for delivery quality
 
 ### 4. Feedback and Reports
-- Combined analysis of speech and video signals into a structured report
-- Observations focused on practical communication improvement
-- Results depend on recording quality, environment, and processing success
+- combination of speaking and visual cues into a structured assessment
+- practical feedback loops for communication improvement
+- recommendations based on actual session outcomes
 
 ### 5. Progress and Settings
-- Session and progress tracking
-- Profile, preferences, and theme management
-- Authentication-protected app experiences and API access
+- session tracking and progress monitoring
+- profile, preference, and theme management
+- authentication-protected access
 
 ### 6. Persona Experience
-- Interactive avatar and coaching-oriented interface elements to deepen user engagement
+- interactive coaching-oriented interface design
+- immersive user experience focused on confidence and growth
 
 ---
 
@@ -150,50 +160,48 @@ sequenceDiagram
 | Area | Technologies |
 |---|---|
 | Frontend | React 18, Vite, React Router |
-| UI & interaction | CSS, Framer Motion |
-| State & requests | Zustand, Axios |
-| 3D / avatar support | Three.js, React Three Fiber, Drei |
+| UI & Interaction | CSS, Framer Motion |
+| State & Requests | Zustand, Axios |
+| 3D / Avatar Support | Three.js, React Three Fiber, Drei |
 | Backend API | Python, FastAPI, Uvicorn |
-| Data validation & config | Pydantic, pydantic-settings, python-dotenv |
-| Persistence | SQLAlchemy; SQLite by default |
-| Authentication | JWT via python-jose, Passlib/bcrypt |
-| Video / vision | MediaPipe, OpenCV, NumPy |
-| Speech analysis | OpenAI Whisper, PyDub, FFmpeg |
-| AI roadmap generation | Groq API |
-| PDF export | ReportLab |
-| Deployment | Vercel frontend; Render-compatible FastAPI backend |
+| Data Validation | Pydantic, pydantic-settings |
+| Persistence | SQLAlchemy, SQLite by default |
+| Authentication | JWT via python-jose, Passlib/Bcrypt |
+| Video / Vision | MediaPipe, OpenCV, NumPy |
+| Speech Analysis | OpenAI Whisper, PyDub, FFmpeg |
+| AI Roadmap Generation | Groq API |
+| PDF Export | ReportLab |
+| Deployment | Vercel frontend; Render-compatible backend |
 
 ---
 
 ## Architecture Overview
 
-The application is split into separate frontend and backend layers:
-
 ```text
 Persona Prime
-├── frontend/                 React + Vite application
+├── frontend/                 React + Vite frontend
 │   └── src/
 │       ├── pages/            landing, auth, dashboard, discovery,
 │       │                     blueprint, studio, reports, progress, settings
 │       ├── components/       shared UI and avatar components
-│       ├── services/         API helper layer
-│       ├── context/          theme and provider state
-│       └── store/            client-side app state
+│       ├── services/         API layer
+│       ├── context/          providers and theme state
+│       └── store/            client-side state
 │
 ├── backend/                  FastAPI service
 │   └── app/
-│       ├── api/              auth, discovery, audio, video, analytics,
-│       │                     scripts and avatar routes
-│       ├── core/              audio, pose, gesture and session analysis
+│       ├── api/              auth, discovery, audio, video, analytics
+│       ├── core/              analysis utilities
 │       ├── models/            SQLAlchemy models
 │       ├── schemas/           request/response validation
-│       ├── data/              discovery question data
-│       └── services/          roadmap and AI-powered services
+│       ├── data/              discovery content
+│       └── services/          roadmap and AI services
 │
 ├── docker-compose.yml
 ├── LICENSE
 ├── README.md
-└── .gitignore
+├── .gitignore
+└── package.json
 ```
 
 ---
@@ -203,7 +211,7 @@ Persona Prime
 ### Prerequisites
 
 - Git
-- Node.js 18 or later
+- Node.js 18+
 - Python 3.11+
 - FFmpeg for audio processing
 - Groq API key for roadmap generation
@@ -217,9 +225,10 @@ cd PERSONA_PRIME
 
 ### 2. Configure the backend
 
-Create and activate a virtual environment from the repository root.
+Create and activate a virtual environment:
 
-#### Windows (PowerShell)
+<details>
+<summary>Windows (PowerShell)</summary>
 
 ```powershell
 py -3.11 -m venv .venv
@@ -227,7 +236,10 @@ py -3.11 -m venv .venv
 pip install -r backend/requirements.txt
 ```
 
-#### macOS / Linux
+</details>
+
+<details>
+<summary>macOS / Linux</summary>
 
 ```bash
 python3.11 -m venv .venv
@@ -235,7 +247,9 @@ source .venv/bin/activate
 pip install -r backend/requirements.txt
 ```
 
-Create `backend/.env` with the following:
+</details>
+
+Create `backend/.env` with:
 
 ```dotenv
 GROQ_API_KEY=your_groq_api_key
@@ -246,14 +260,14 @@ DATABASE_URL=sqlite:///./persona_prime.db
 FRONTEND_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,https://persona-prime.vercel.app
 ```
 
-Run the API from the backend directory:
+Then start the API:
 
 ```bash
 cd backend
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-The API documentation is available at:
+The API docs will be available at:
 
 - Swagger UI: http://127.0.0.1:8000/docs
 - OpenAPI schema: http://127.0.0.1:8000/openapi.json
@@ -268,9 +282,9 @@ npm install
 npm run dev
 ```
 
-Vite typically exposes the app at http://localhost:5173.
+The application is typically available at http://localhost:5173.
 
-### 4. Run via Docker (optional)
+### 4. Run with Docker (optional)
 
 ```bash
 docker compose up --build
@@ -280,56 +294,111 @@ docker compose up --build
 
 ## API Overview
 
-The FastAPI service organizes its functionality into these route areas:
+The FastAPI service organizes functionality into route areas:
 
 | Area | Purpose |
 |---|---|
 | `/auth` | registration, login, profile, preferences |
-| `/discovery` | discovery questions, saved profile, roadmap, PDF export |
+| `/discovery` | discovery questions, roadmap generation, PDF export |
 | `/audio` | uploaded-audio analysis |
 | `/video/analyze` | WebSocket-based video analysis |
 | analytics & script routes | communication-practice support workflows |
 
-For full request and response schemas, use the running Swagger UI at `/docs`.
+For full schemas and examples, use the running Swagger UI at `/docs`.
 
 ---
 
-## Configuration and Security
+## Security and Configuration
 
-- Keep `backend/.env`, credentials, and API keys out of version control
-- Use strong production secrets for `SECRET_KEY`
-- Restrict `FRONTEND_ORIGINS` to trusted frontend origins
-- Use HTTPS in deployment
-- Treat AI-generated analysis and roadmaps as supportive guidance, not definitive personal judgment
+- keep `.env` and credentials out of version control
+- use a strong production secret for `SECRET_KEY`
+- restrict `FRONTEND_ORIGINS` to trusted domains
+- use HTTPS in deployment
+- treat AI-generated prompts and insights as supportive guidance, not final judgment
+
+> [!NOTE]
+> For production deployments, validate all environment variables before launching the service stack.
 
 ---
 
-## Current Limitations
+## Algorithms & Math
 
-- Audio and video analysis may require significant processing time and memory, especially on first model load
-- Quality of results depends on lighting, camera placement, microphone clarity, accent, and recording conditions
-- AI roadmap generation requires valid Groq access and network connectivity
-- Frontend and backend are deployed separately, so uptime depends on both services
+For algorithmic or cryptographic concepts, Persona Prime documentation can include formal mathematical expressions directly in the README.
+
+### Example: Communication confidence model
+
+A simple confidence score can be represented as:
+
+$$
+C = \alpha S + \beta P + \gamma R - \delta F
+$$
+
+where:
+
+- $C$ = confidence score
+- $S$ = strength signal
+- $P$ = practice consistency
+- $R$ = reflection quality
+- $F$ = friction or uncertainty penalty
+- $\alpha, \beta, \gamma, \delta$ = weighting factors
+
+This allows a lightweight model to represent how repeated practice and reflection can compound growth.
+
+### Example: Hash collision estimate
+
+For a hash function with output size $k$ bits, the collision probability after $t$ samples is approximately:
+
+$$
+P_{coll} \approx 1 - e^{-\frac{t(t-1)}{2\cdot 2^k}}
+$$
+
+This kind of equation is useful in systems where security, uniqueness, or verification quality matters.
+
+---
+
+## CLI and Keyboard Shortcuts
+
+For developer workflows and local tool usage, keyboard controls can be shown clearly with `<kbd>` tags:
+
+- <kbd>Ctrl</kbd> + <kbd>C</kbd> to stop a running process
+- <kbd>Ctrl</kbd> + <kbd>L</kbd> to clear the terminal
+- <kbd>Tab</kbd> to move through interactive prompts or UI controls
+
+---
+
+## Sample Logs
+
+<details>
+<summary>View sample server logs</summary>
+
+```log
+[INFO] 2026-10-14T10:00:00Z Server started on port 8000
+[INFO] 2026-10-14T10:01:02Z POST /v1/send 200 OK
+[WARNING] 2026-10-14T10:02:12Z Low audio clarity detected during session analysis
+[ERROR] 2026-10-14T10:03:40Z AI service timeout during roadmap generation
+```
+
+</details>
 
 ---
 
 ## Development Priorities
 
-- Add automated tests for auth, discovery, roadmap generation, and analysis endpoints
-- Improve error handling and observability for AI/media-processing failures
-- Validate production configuration and persistence setup
-- Continue UX, accessibility, and end-to-end workflow testing
+- add automated tests for auth, discovery, and analysis endpoints
+- improve observability and resilience for AI/media-processing failures
+- simplify deployment configuration for production environments
+- continue UX and accessibility improvements
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Before submitting a change:
+Contributions are welcome. Before submitting changes:
 
-1. Explain the issue or improvement clearly
-2. Keep changes focused and avoid committing secrets or generated data
-3. Test the affected frontend or backend workflow
-4. Include clear reproduction steps for bugs
+1. explain the issue or improvement clearly
+2. keep changes focused and avoid committing secrets or generated data
+3. test the affected frontend or backend workflow
+4. include reproduction steps for bugs
 
 Use the repository's Issues page to report bugs or propose enhancements.
 
@@ -350,4 +419,4 @@ This project is distributed under the MIT License. See [LICENSE](LICENSE) for de
 
 ---
 
-<p align="center"><strong>Persona Prime — Discover your strengths. Practise with purpose. Grow with a plan.</strong></p>
+<p align="center"><strong>Persona Prime — Discover your strengths. Practice with purpose. Grow with a plan.</strong></p>
