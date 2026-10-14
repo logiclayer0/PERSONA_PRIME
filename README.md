@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/github/license/logiclayer0/PERSONA_PRIME)](LICENSE)
 [![Top Language](https://img.shields.io/github/languages/top/logiclayer0/PERSONA_PRIME)](https://github.com/logiclayer0/PERSONA_PRIME)
 
-AI-assisted personal development and communication coaching for students and early-career professionals — helping users uncover strengths, sharpen communication habits, and turn reflection into actionable growth plans.
+AI-assisted personal development and communication coaching for students and early-career professionals — helping users uncover strengths, sharpen communication habits, and turn reflection into measurable progress.
 
 <p align="center">
   <a href="https://persona-prime.vercel.app"><strong>Live App</strong></a>
@@ -40,7 +40,7 @@ The platform combines reflection, AI-assisted analysis, coaching prompts, and st
 
 ## Problem
 
-Many learners do not need more generic advice — they need structured self-understanding, targeted feedback, and repeated practice. Without intentional reflection and guided coaching, growth efforts often remain vague and inconsistent.
+Many learners do not need more generic advice — they need structured self-understanding, targeted feedback, and repeated practice. Without intentional reflection and guided coaching, growth efforts stagnate.
 
 ---
 
@@ -88,6 +88,124 @@ This architecture separates the product experience into a polished React fronten
 
 ---
 
+## Diagrams & Charts
+
+To present system design, progress metrics, and timelines professionally in the README and documentation, Persona Prime uses a combination of lightweight diagram types that render well on GitHub and in developer tooling.
+
+Below are recommended diagram formats, concise examples (Mermaid), and practical notes for producing high-quality visuals for docs and reports.
+
+### Flowcharts
+- Purpose: Visualize component interactions, request/response flow, and high-level user paths.
+- Recommended: Mermaid `flowchart` for simple architecture diagrams; export to PNG/SVG for inclusion in other docs when needed.
+
+```mermaid
+flowchart TD
+  U[User] --> F[Frontend]
+  F --> B[Backend API]
+  B --> A[AI Services]
+  B --> DB[(Database)]
+  A -->|Insights| B
+  B -->|Updates| F
+```
+
+Notes:
+- Keep nodes and labels short; annotate edges where necessary.
+- For complex flows break diagrams into focused slices (authentication flow, session flow, report generation) to stay readable.
+
+### Pie charts (Metrics)
+- Purpose: Show distribution (e.g., session types, confidence buckets, category breakdowns).
+- Recommended: Use Mermaid `pie` for quick inline visuals. For interactive or production-quality charts (tooltips, legends) use Chart.js or D3 in the frontend.
+
+Mermaid example:
+
+```mermaid
+pie title Session outcomes
+  "Improved" : 45
+  "Stable" : 30
+  "Needs work" : 25
+```
+
+Chart.js (frontend) example snippet:
+
+```js
+import { Pie } from 'react-chartjs-2'
+
+const data = {
+  labels: ['Improved','Stable','Needs work'],
+  datasets: [{ data: [45,30,25], backgroundColor: ['#4caf50','#ffca28','#f44336'] }]
+}
+
+<Pie data={data} />
+```
+
+### Gantt charts (Roadmaps & Timelines)
+- Purpose: Visualize user roadmaps, milestones, and multi-step plans over time.
+- Recommended: Mermaid `gantt` for README timelines; for richer features consider Grafana/Plotly or exporting from a PM tool.
+
+```mermaid
+gantt
+title Persona Roadmap
+dateFormat  YYYY-MM-DD
+section Discovery
+Research       :done, 2026-01-01, 2026-01-10
+Survey         :active, 2026-01-11, 7d
+section Practice
+Studio MVP     :2026-02-01, 2026-02-14
+Feedback Loop  :2026-02-15, 14d
+```
+
+Notes:
+- Use concise task names and align dates to meaningful milestones.
+- For multi-user planning export Gantt to shared tooling (Asana, Trello Power-Ups, or CSV imports) for richer collaboration.
+
+### Class diagrams (Design & Models)
+- Purpose: Communicate domain models and key relationships (e.g., User, Session, Report, Blueprint).
+- Recommended: Mermaid `classDiagram` for compact model summaries.
+
+```mermaid
+classDiagram
+  class User {
+    +int id
+    +string name
+    +string email
+    +getProfile()
+  }
+  class Session {
+    +int id
+    +datetime started_at
+    +float confidence_score
+  }
+  User "1" -- "*" Session : owns
+  Session --> Report : generates
+```
+
+Notes:
+- Keep attributes and methods minimal in README diagrams; link to full schema files in the repo for details.
+
+### State diagrams
+- Purpose: Describe lifecycle of entities (e.g., session state transitions: draft → active → reviewed → exported).
+- Recommended: Mermaid `stateDiagram` for readable lifecycle diagrams.
+
+```mermaid
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> Active : start()
+  Active --> Reviewing : complete()
+  Reviewing --> Exported : approve()
+  Reviewing --> Active : reopen()
+```
+
+Notes:
+- Use explicit transition labels for actions/guards.
+- Model error/retry paths where media processing or model inference may fail.
+
+### Exporting, Rendering, and Accessibility
+- GitHub renders Mermaid blocks in Markdown; if you need images for other audiences, export diagrams to SVG or PNG using tools like mermaid-cli, Kroki, or the Mermaid Live Editor.
+- For charts embedded in the app, prefer frontend libraries (Chart.js, D3, Plotly) for interactivity and accessibility (keyboard/ARIA support).
+- Keep alt text or adjacent captions for exported images to improve accessibility.
+
+---
+
 ## User Journey Flow
 
 ```mermaid
@@ -116,8 +234,8 @@ sequenceDiagram
     B->>A: Finalize report
     A-->>B: Feedback summary
     B->>D: Save session results
-    B-->>F: Final report and PDF export
-    F-->>U: Display guidance and roadmap updates
+    B->>>F: Final report and PDF export
+    F->>>U: Display guidance and roadmap updates
 ```
 
 ---
