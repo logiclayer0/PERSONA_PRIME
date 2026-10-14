@@ -1,8 +1,11 @@
 # Persona Prime
 
-**AI-assisted personal development and communication coaching.**
+[![Frontend: React + Vite](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?logo=react&logoColor=20232A)](https://persona-prime.vercel.app)
+[![Backend: Python](https://img.shields.io/badge/Backend-Python-3776AB?logo=python&logoColor=white)]()
+[![API: FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Persona Prime helps users explore their strengths, reflect on their personality and goals, build a personalized development blueprint, and practise communication through speech and video feedback. [...]
+**AI-assisted personal development and communication coaching — helping users uncover strengths, refine communication skills, and turn reflection into an actionable growth plan.**
 
 <p align="center">
   <a href="https://persona-prime.vercel.app"><strong>Live Application</strong></a>
@@ -12,151 +15,198 @@ Persona Prime helps users explore their strengths, reflect on their personality 
   <a href="https://github.com/logiclayer0/PERSONA_PRIME/pulls">Contribute</a>
 </p>
 
-![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?logo=react&logoColor=20232A)
-![Python](https://img.shields.io/badge/Backend-Python-3776AB?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
+---
+
+## Overview
+
+Persona Prime is a personal development and communication coaching platform designed to help students and early-career professionals:
+
+- understand their strengths, preferences, and development areas
+- build a personalized roadmap based on reflection and self-assessment
+- practice speaking and presentation skills with guided video-based feedback
+- track progress and export actionable reports
+
+The platform blends self-discovery, AI-assisted guidance, communication practice, and progress tracking into one experience.
 
 ---
 
-## Demo
-
-**Video walkthrough:** `[Add YouTube demo link here]`
-
-Replace the placeholder above with the public or unlisted YouTube URL after uploading the project demo.
-
-**Live app:** https://persona-prime.vercel.app
-
-> The frontend and backend are deployed separately. Features that require the backend or external AI services depend on their current availability and configuration.
-
 ## The Problem
 
-Students and early-career learners often need more than a list of goals: they need help understanding themselves, choosing meaningful development areas, practising communication, and turning feedb[...]
+Many learners and early-career professionals do not need only a list of goals — they need structured self-understanding, targeted feedback, and guided practice. Without intentional reflection and coaching, growth often becomes vague, inconsistent, or disconnected from real communication habits.
+
+---
 
 ## The Solution
 
-Persona Prime combines self-discovery, personalized guidance, communication practice, and progress tracking in one experience. It is designed to help users turn reflection into a practical plan an[...]
+Persona Prime combines personal reflection, AI-generated guidance, communication rehearsal, and data-informed feedback in one workflow. It helps users convert self-awareness into a clear development path and supports regular practice with practical, measurable indicators.
 
-## Features
+> Generated insights are intended to support coaching and practice, not replace professional assessment or formal psychological evaluation.
+
+---
+
+## Feature Architecture
+
+```mermaid
+flowchart LR
+  subgraph Client
+    A[Browser / React Frontend]
+  end
+
+  subgraph App
+    B[FastAPI Backend]
+    C[Auth & Profiles]
+    D[Discovery / Roadmap Engine]
+    E[Audio & Video Analysis]
+    F[AI Services & Reports]
+    G[Database]
+  end
+
+  A -->|REST + WebSocket| B
+  B --> C
+  B --> D
+  B --> E
+  B --> F
+  E --> G
+  F --> G
+  G --> B
+  B -->|Results & reports| A
+```
+
+This architecture highlights the product's split between a modern React frontend and a Python/FastAPI backend that coordinates user journeys, analysis, and AI-assisted report generation.
+
+---
+
+## User Journey Flow
+
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant F as Frontend
+  participant B as Backend
+  participant A as Analysis / AI Services
+  participant D as Database
+
+  U->>F: Sign in and complete discovery survey
+  F->>B: Submit responses and profile data
+  B->>A: Generate personal profile and roadmap
+  A-->>B: Insights, strengths, development areas
+  B->>D: Save profile and blueprint
+  D-->>F: Return personalized roadmap
+
+  U->>F: Enter communication practice studio
+  F->>B: Start session and open video/audio streams
+  loop During practice
+    F->>B: Send video frames and audio
+    B->>A: Analyze posture, voice, gestures, and speech
+    A-->>B: Partial signals and observations
+    B-->>F: Live progress / interim feedback
+  end
+  B->>A: Finalize session summary and report
+  A-->>B: Feedback summary
+  B->>D: Save session results and report
+  B-->>F: Final report and PDF export
+  F-->>U: Display feedback, roadmap updates, and completed results
+```
+
+---
+
+## Core Features
 
 ### 1. Discover Yourself
-- Guided questions for reflecting on personal preferences, experiences, interests, and development goals.
-- Saves discovery progress so users can continue their profile-building journey.
-- Uses submitted answers to generate a personalized profile and development roadmap.
+- Guided reflections on preferences, experiences, interests, and development goals
+- Save-and-resume flow for profile generation
+- Personalized profile built from user responses and development priorities
 
 ### 2. Personal Development Blueprint
-- Generates a structured roadmap from discovery responses and profile information.
-- Includes a personality-style summary, confidence-related indicators, strengths, development areas, and suggested next steps where available.
-- Supports viewing the saved roadmap and exporting it as a PDF.
+- AI-assisted roadmap generation based on discovery insights
+- Summary of strengths, confidence areas, development opportunities, and next steps
+- View saved blueprint and export a PDF version
 
-*Generated personality and confidence indicators are guidance based on the application's current scoring and AI workflow; they are not clinical or psychometric assessments.*
+> Personality and confidence indicators are informational guidance derived from the current system logic and should not be treated as clinical or psychometric assessments.
 
 ### 3. Communication Practice Studio
-- A guided flow for choosing a role or practice category, selecting content, and preparing a script.
-- Recording-studio workflow for practising delivery.
-- Video-analysis pipeline built around MediaPipe and OpenCV for posture, face/eye-direction signals, and hand gestures.
-- Speech-analysis pipeline built around Whisper for transcription, speaking pace, and filler-word detection.
+- Guided role and category-based preparation workflow
+- Script selection and practice setup
+- Video analysis for posture, eye direction, face signals, and hand gestures
+- Speech analysis for transcription, speaking pace, and filler-word detection
 
 ### 4. Feedback and Reports
-- Combines available session signals into feedback and a report-oriented practice flow.
-- Presents communication observations intended to help users identify areas to practise.
-- Results depend on camera/audio quality, model behaviour, and successful processing of the session.
+- Combined analysis of speech and video signals into a structured report
+- Observations focused on practical communication improvement
+- Results depend on recording quality, environment, and processing success
 
-### 5. Progress and Personal Settings
-- Progress and session-related views.
-- Account profile, preferences, theme, and reminder settings.
-- Authentication-protected application routes and token-based API authentication.
+### 5. Progress and Settings
+- Session and progress tracking
+- Profile, preferences, and theme management
+- Authentication-protected app experiences and API access
 
-### 6. Interactive Persona Experience
-- An in-app floating avatar experience and interface elements that support the product's guided-coaching concept.
+### 6. Persona Experience
+- Interactive avatar and coaching-oriented interface elements to deepen user engagement
+
+---
 
 ## Technology Stack
 
 | Area | Technologies |
 |---|---|
 | Frontend | React 18, Vite, React Router |
-| UI and interaction | CSS, Framer Motion |
-| State and requests | Zustand, Axios |
+| UI & interaction | CSS, Framer Motion |
+| State & requests | Zustand, Axios |
 | 3D / avatar support | Three.js, React Three Fiber, Drei |
 | Backend API | Python, FastAPI, Uvicorn |
-| Data validation and configuration | Pydantic, pydantic-settings, python-dotenv |
-| Persistence | SQLAlchemy; SQLite by default, configurable via `DATABASE_URL` |
-| Authentication | JWT via python-jose, password hashing via Passlib/bcrypt |
+| Data validation & config | Pydantic, pydantic-settings, python-dotenv |
+| Persistence | SQLAlchemy; SQLite by default |
+| Authentication | JWT via python-jose, Passlib/bcrypt |
 | Video / vision | MediaPipe, OpenCV, NumPy |
 | Speech analysis | OpenAI Whisper, PyDub, FFmpeg |
 | AI roadmap generation | Groq API |
 | PDF export | ReportLab |
 | Deployment | Vercel frontend; Render-compatible FastAPI backend |
 
-## Architecture
+---
 
-The application uses a separate frontend and backend:
+## Architecture Overview
+
+The application is split into separate frontend and backend layers:
 
 ```text
 Persona Prime
-├── frontend/                 React + Vite single-page application
+├── frontend/                 React + Vite application
 │   └── src/
-│       ├── pages/            Landing, auth, dashboard, discovery,
+│       ├── pages/            landing, auth, dashboard, discovery,
 │       │                     blueprint, studio, reports, progress, settings
-│       ├── components/       Shared UI and avatar components
-│       ├── services/         API request helpers
-│       ├── context/          Theme context
-│       └── store/            Client-side application state
+│       ├── components/       shared UI and avatar components
+│       ├── services/         API helper layer
+│       ├── context/          theme and provider state
+│       └── store/            client-side app state
 │
 ├── backend/                  FastAPI service
 │   └── app/
-│       ├── api/              Authentication, discovery, audio, video,
-│       │                     analytics, scripts and avatar routes
-│       ├── core/              Audio, pose, gesture and session analysis
-│       ├── models/            SQLAlchemy data models
-│       ├── schemas/           Request and response schemas
-│       ├── data/              Discovery question data
-│       └── services/          Roadmap and AI-related services
+│       ├── api/              auth, discovery, audio, video, analytics,
+│       │                     scripts and avatar routes
+│       ├── core/              audio, pose, gesture and session analysis
+│       ├── models/            SQLAlchemy models
+│       ├── schemas/           request/response validation
+│       ├── data/              discovery question data
+│       └── services/          roadmap and AI-powered services
 │
 ├── docker-compose.yml
-└── README.md
+├── LICENSE
+├── README.md
+└── .gitignore
 ```
 
-### Sequence flow (simplified)
-
-Below is a short, linear sequence flow that mirrors the separation-of-concerns style in the referenced architecture diagram. It highlights where the system pauses, which components stream data, and how analysis results flow back to the user.
-
-1. User (browser) — interacts with the React frontend UI (landing, discovery, studio, etc.).
-2. Frontend — makes REST API calls for profile/discovery/roadmap and opens a WebSocket for real-time video frame streaming to the backend's `/video/analyze` endpoint.
-3. Backend — receives requests and WebSocket frames, routes video/audio to analysis pipelines (MediaPipe/OpenCV, Whisper), performs inference, and stores intermediate results.
-4. AI & external services — Groq (roadmap generation), Whisper (speech->text), and any other external models are called by the backend services as needed.
-5. Persistence & events — processed signals, session summaries, and roadmap drafts are saved to the database and published to the frontend via API responses or WebSocket messages.
-6. Frontend — receives analysis/roadmap results, renders feedback and reports, and allows PDF export or further user interaction.
-
-```text
-User (browser)  ---> Frontend (React)  ---> Backend (FastAPI)  ---> AI / Analysis services
-    (UI)               (REST / WS)            (WS + pipelines)        (Whisper, Groq, MediaPipe)
-         <--- results, events, roadmap, feedback -------------------------------
-```
-
-Notes and extension ideas:
-
-- The unnumbered "pause" in the flow (where the frontend waits for the backend to process a streamed session) is the point to optimise for UX: show live progress, partial results, and retry options.
-- For documentation and diagrams, consider adding a Mermaid sequence diagram or PNG/SVG image in `/docs/` and linking it from the README for a visual version like the one you shared.
-- If you'd like the README to include an exact replica of an external diagram, provide the image file (or a link) and I can add it and reference it in the README.
-
-### Request and analysis flow
-
-1. The user interacts with the React frontend.
-2. The frontend calls the FastAPI backend for authentication, profile, discovery, roadmap, and session operations.
-3. Discovery responses are saved and used to build a personalized roadmap.
-4. During communication practice, video and audio inputs are sent to their respective analysis workflows.
-5. Available analysis results are used to provide feedback and support progress-oriented views.
+---
 
 ## Getting Started
 
 ### Prerequisites
 
 - Git
-- Node.js and npm (Node.js 18 or later recommended)
-- Python 3.11 recommended for the backend
+- Node.js 18 or later
+- Python 3.11+
 - FFmpeg for audio processing
-- A Groq API key for AI roadmap generation
+- Groq API key for roadmap generation
 
 ### 1. Clone the repository
 
@@ -167,9 +217,9 @@ cd PERSONA_PRIME
 
 ### 2. Configure the backend
 
-Create and activate a virtual environment from the repository root:
+Create and activate a virtual environment from the repository root.
 
-**Windows (PowerShell)**
+#### Windows (PowerShell)
 
 ```powershell
 py -3.11 -m venv .venv
@@ -177,7 +227,7 @@ py -3.11 -m venv .venv
 pip install -r backend/requirements.txt
 ```
 
-**macOS / Linux**
+#### macOS / Linux
 
 ```bash
 python3.11 -m venv .venv
@@ -185,7 +235,7 @@ source .venv/bin/activate
 pip install -r backend/requirements.txt
 ```
 
-Create `backend/.env` with the configuration below. Do not commit this file or real API keys.
+Create `backend/.env` with the following:
 
 ```dotenv
 GROQ_API_KEY=your_groq_api_key
@@ -196,8 +246,6 @@ DATABASE_URL=sqlite:///./persona_prime.db
 FRONTEND_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,https://persona-prime.vercel.app
 ```
 
-Generate a strong, unique `SECRET_KEY` for any deployed environment. Configure the database URL and allowed frontend origins for your own deployment.
-
 Run the API from the backend directory:
 
 ```bash
@@ -205,14 +253,14 @@ cd backend
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-When the API is running, interactive API documentation is available at:
+The API documentation is available at:
 
 - Swagger UI: http://127.0.0.1:8000/docs
 - OpenAPI schema: http://127.0.0.1:8000/openapi.json
 
 ### 3. Configure and run the frontend
 
-Open a second terminal from the repository root:
+From a second terminal:
 
 ```bash
 cd frontend
@@ -220,76 +268,85 @@ npm install
 npm run dev
 ```
 
-Vite will print the local development URL, normally http://localhost:5173.
+Vite typically exposes the app at http://localhost:5173.
 
-**Backend URL configuration:** make sure the frontend's API service points to the backend URL you are running. In production, configure it to use the deployed API URL rather than a localhost addr[...]
-
-### 4. Optional: Docker Compose
-
-The repository includes a Docker Compose configuration. Review its `env_file` and service settings before running it; the current configuration expects `backend/.env` to exist.
+### 4. Run via Docker (optional)
 
 ```bash
 docker compose up --build
 ```
 
+---
+
 ## API Overview
 
-The FastAPI application groups its functionality into these route areas:
+The FastAPI service organizes its functionality into these route areas:
 
 | Area | Purpose |
 |---|---|
-| `/auth` | Registration, login, current user, profile and preferences |
-| `/discovery` | Questions, saved discovery profile, completion, roadmap and PDF export |
-| `/audio` | Uploaded-audio analysis |
-| `/video/analyze` | WebSocket-based video frame analysis |
-| Analytics, scripts and avatar routes | Supporting communication-practice workflows |
+| `/auth` | registration, login, profile, preferences |
+| `/discovery` | discovery questions, saved profile, roadmap, PDF export |
+| `/audio` | uploaded-audio analysis |
+| `/video/analyze` | WebSocket-based video analysis |
+| analytics & script routes | communication-practice support workflows |
 
-For exact request schemas and available operations, use the running service's Swagger UI at `/docs`. The video analysis endpoint is a WebSocket endpoint, not a regular HTTP upload route.
+For full request and response schemas, use the running Swagger UI at `/docs`.
+
+---
 
 ## Configuration and Security
 
-- Keep `backend/.env`, credentials, and API keys out of version control.
-- Set a strong `SECRET_KEY` in every non-local environment; do not rely on development defaults.
-- Restrict `FRONTEND_ORIGINS` to trusted frontend origins.
-- Use HTTPS for deployed services and avoid sending real user data to untrusted environments.
-- Treat AI-generated roadmaps and computer-vision / speech feedback as estimates for practice, not definitive judgements about a person.
+- Keep `backend/.env`, credentials, and API keys out of version control
+- Use strong production secrets for `SECRET_KEY`
+- Restrict `FRONTEND_ORIGINS` to trusted frontend origins
+- Use HTTPS in deployment
+- Treat AI-generated analysis and roadmaps as supportive guidance, not definitive personal judgment
+
+---
 
 ## Current Limitations
 
-- Speech analysis loads the Whisper model on first use. Model initialization and inference can require substantial memory and processing time; small hosting instances may not support this reliabl[...]
-- Video analysis depends on a compatible MediaPipe installation and available CPU/memory resources.
-- AI roadmap generation requires a valid Groq API key and network access to the provider.
-- Analysis quality may vary with lighting, camera position, background noise, microphone quality, accent, and recording length.
-- Deployment availability depends on the status and configuration of the separately hosted frontend and backend.
+- Audio and video analysis may require significant processing time and memory, especially on first model load
+- Quality of results depends on lighting, camera placement, microphone clarity, accent, and recording conditions
+- AI roadmap generation requires valid Groq access and network connectivity
+- Frontend and backend are deployed separately, so uptime depends on both services
+
+---
 
 ## Development Priorities
 
-- Add automated tests for authentication, discovery, roadmap generation, and analysis endpoints.
-- Improve error handling and observability for AI and media-processing failures.
-- Validate production environment configuration and database persistence.
-- Continue accessibility, responsive-layout, and end-to-end workflow testing.
+- Add automated tests for auth, discovery, roadmap generation, and analysis endpoints
+- Improve error handling and observability for AI/media-processing failures
+- Validate production configuration and persistence setup
+- Continue UX, accessibility, and end-to-end workflow testing
+
+---
 
 ## Contributing
 
-Contributions and constructive feedback are welcome. Before submitting a change:
+Contributions are welcome. Before submitting a change:
 
-1. Explain the issue or improvement.
-2. Keep changes focused and avoid committing credentials or generated data.
-3. Test the affected frontend or backend workflow.
-4. Include clear reproduction steps for bug reports.
+1. Explain the issue or improvement clearly
+2. Keep changes focused and avoid committing secrets or generated data
+3. Test the affected frontend or backend workflow
+4. Include clear reproduction steps for bugs
 
-Use the repository's Issues page to report bugs or suggest improvements.
+Use the repository's Issues page to report bugs or propose enhancements.
+
+---
 
 ## License
 
 This project is distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
+---
+
 ## Links
 
-- **Live application:** https://persona-prime.vercel.app
-- **Source code:** https://github.com/logiclayer0/PERSONA_PRIME
-- **Issues:** https://github.com/logiclayer0/PERSONA_PRIME/issues
-- **Pull requests:** https://github.com/logiclayer0/PERSONA_PRIME/pulls
+- Live application: https://persona-prime.vercel.app
+- Source code: https://github.com/logiclayer0/PERSONA_PRIME
+- Issues: https://github.com/logiclayer0/PERSONA_PRIME/issues
+- Pull requests: https://github.com/logiclayer0/PERSONA_PRIME/pulls
 
 ---
 
