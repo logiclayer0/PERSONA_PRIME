@@ -13,6 +13,7 @@ app = FastAPI(title="Persona Prime API", version="1.1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in settings.FRONTEND_ORIGINS.split(',') if o.strip()],
+    allow_origin_regex=r"https://([a-z0-9-]+\.)*vercel\.app",
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
