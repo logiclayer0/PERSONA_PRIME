@@ -30,7 +30,7 @@ export default function AuthPage() {
       localStorage.setItem('showTutorModal', 'true')
       navigate('/home')
     } catch (err) {
-      setError(err.response?.data?.detail || 'Something went wrong')
+      setError(err.response?.data?.detail || (err.code === 'ECONNABORTED' ? 'The server took too long to respond. Please try again.' : !err.response ? 'Cannot reach the Persona Prime API. Please try again in a moment.' : `Request failed (${err.response.status}). Please try again.`))
     } finally {
       setLoading(false)
     }
