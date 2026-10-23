@@ -1,7 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile,
+  updateProfile as firebaseUpdateProfile,
   signOut,
   onAuthStateChanged
 } from "firebase/auth";
@@ -22,7 +22,7 @@ export const registerUser = async ({ email, password, display_name, role = "stud
 
   // 2. Set display name
   if (display_name) {
-    await updateProfile(userCredential.user, { displayName: display_name });
+    await firebaseUpdateProfile(userCredential.user, { displayName: display_name });
   }
 
   // 3. Get Firebase ID token
@@ -103,7 +103,7 @@ export const updateReminder = async (payload) => {
 
 export const updateProfile = async (payload) => {
   if (auth.currentUser && payload.display_name) {
-    await updateProfile(auth.currentUser, { displayName: payload.display_name });
+    await firebaseUpdateProfile(auth.currentUser, { displayName: payload.display_name });
   }
   try {
     return (await api.post("/auth/profile", payload)).data;
